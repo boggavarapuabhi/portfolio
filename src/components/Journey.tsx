@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { journeyChapters } from "@/lib/data";
@@ -12,11 +13,11 @@ import {
 } from "./journey/Skylines";
 
 const skylineMap: Record<string, React.ReactNode> = {
-  school: <IndianVillageSkyline className="w-full h-auto text-amber-400" />,
-  intermediate: <IndianVillageSkyline className="w-full h-auto text-rose-400" />,
-  btech: <HyderabadSkyline className="w-full h-auto text-cyan-400" />,
-  nyc: <NYCSkyline className="w-full h-auto text-indigo-400" />,
-  now: <JerseyCitySkyline className="w-full h-auto text-violet-400" />,
+  school: <IndianVillageSkyline className="w-full h-auto text-white/40" />,
+  intermediate: <IndianVillageSkyline className="w-full h-auto text-white/30" />,
+  btech: <HyderabadSkyline className="w-full h-auto text-white/40" />,
+  nyc: <NYCSkyline className="w-full h-auto text-white/40" />,
+  now: <JerseyCitySkyline className="w-full h-auto text-white/30" />,
 };
 
 const avatarStageMap: Record<string, "kid" | "teen" | "college" | "professional" | "builder"> = {
@@ -46,6 +47,14 @@ function JourneyCard({
   const inView = useInView(ref, { once: true, margin: "-10%" });
   const isLeft = index % 2 === 0;
 
+  const cardRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "end start"],
+  });
+  // Parallax: photo moves slower than scroll
+  const photoY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+
   return (
     <div
       ref={ref}
@@ -53,7 +62,7 @@ function JourneyCard({
         isLeft ? "md:flex-row" : "md:flex-row-reverse"
       } flex-col md:flex-row`}
     >
-      {/* Timeline node — AVATAR instead of emoji */}
+      {/* Timeline node — AVATAR */}
       <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 flex-col items-center z-10">
         <motion.div
           initial={{ scale: 0 }}
@@ -69,7 +78,6 @@ function JourneyCard({
               color={chapter.accentColor}
             />
           )}
-          {/* Pulse ring */}
           <motion.div
             initial={{ scale: 0 }}
             animate={inView ? { scale: [1, 1.6, 1], opacity: [0.4, 0, 0.4] } : {}}
@@ -78,7 +86,6 @@ function JourneyCard({
             style={{ borderColor: chapter.accentColor }}
           />
         </motion.div>
-        {/* Size label under avatar */}
         <motion.span
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
@@ -91,6 +98,7 @@ function JourneyCard({
 
       {/* Content card */}
       <motion.div
+        ref={cardRef}
         initial={{ opacity: 0, x: isLeft ? -60 : 60, y: 20 }}
         animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
         transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1], delay: 0.1 }}
@@ -121,92 +129,124 @@ function JourneyCard({
             className="relative rounded-3xl border border-border bg-card/80 backdrop-blur-sm hover:bg-card-hover transition-all duration-500 card-shine overflow-hidden group-hover:border-opacity-50"
             style={{ "--shine-color": chapter.accentColor } as React.CSSProperties}
           >
-            {/* SKYLINE BACKGROUND — the building silhouette */}
+            {/* ============================================ */}
+            {/* REAL PHOTO BACKGROUND WITH PARALLAX          */}
+            {/* ============================================ */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ duration: 1.5, delay: 0.2 }}
               className="relative w-full overflow-hidden"
-              style={{ height: "120px" }}
+              style={{ height: "220px" }}
             >
-              {/* Sky gradient */}
+              {/* Real photo with parallax */}
+              <motion.div
+                className="absolute inset-0 w-full"
+                style={{ y: photoY, height: "130%", top: "-15%" }}
+              >
+                <Image
+                  src={chapter.photo}
+                  alt={`${chapter.location} - ${chapter.era}`}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  priority={index < 2}
+                />
+              </motion.div>
+
+              {/* Dark overlay gradient from bottom for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a1a] via-[#0a0a1a]/70 to-transparent" />
+
+              {/* Color tint overlay matching chapter accent */}
               <div
-                className="absolute inset-0 bg-gradient-to-t opacity-40"
-                style={{
-                  backgroundImage: `linear-gradient(to top, ${chapter.accentColor}15, transparent)`,
-                }}
+                className="absolute inset-0 opacity-20 mix-blend-overlay"
+                style={{ background: chapter.accentColor }}
               />
 
-              {/* Animated building construction — buildings rise from bottom */}
+              {/* SVG Skyline silhouette overlay at the bottom */}
               <motion.div
-                className="absolute bottom-0 left-0 right-0"
-                initial={{ y: 40 }}
-                animate={inView ? { y: 0 } : {}}
-                transition={{ duration: 1.5, delay: 0.2, ease: [0.25, 0.4, 0.25, 1] }}
+                className="absolute bottom-0 left-0 right-0 z-10"
+                initial={{ y: 30, opacity: 0 }}
+                animate={inView ? { y: 0, opacity: 1 } : {}}
+                transition={{ duration: 1.2, delay: 0.6, ease: [0.25, 0.4, 0.25, 1] }}
               >
                 {skylineMap[chapter.id]}
               </motion.div>
 
-              {/* Stars / particles for nighttime feel */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={inView ? { opacity: 1 } : {}}
-                transition={{ delay: 1.5 }}
-                className="absolute inset-0"
-              >
-                {[...Array(8)].map((_, i) => (
+              {/* Twinkling stars */}
+              <div className="absolute inset-0 z-10 pointer-events-none">
+                {[...Array(6)].map((_, i) => (
                   <motion.div
                     key={i}
                     className="absolute w-1 h-1 rounded-full bg-white"
                     style={{
-                      left: `${10 + i * 12}%`,
-                      top: `${15 + (i % 3) * 15}%`,
-                      opacity: 0.15 + (i % 3) * 0.1,
+                      left: `${12 + i * 15}%`,
+                      top: `${10 + (i % 3) * 12}%`,
                     }}
-                    animate={{
-                      opacity: [0.1, 0.35, 0.1],
-                    }}
+                    animate={{ opacity: [0.1, 0.5, 0.1] }}
                     transition={{
                       repeat: Infinity,
-                      duration: 2 + i * 0.3,
-                      delay: i * 0.2,
+                      duration: 2 + i * 0.4,
+                      delay: i * 0.3,
                     }}
                   />
                 ))}
-              </motion.div>
+              </div>
 
-              {/* Gradient accent line at the very top */}
+              {/* Era badge overlaying the photo */}
+              <div className="absolute bottom-4 left-6 z-20">
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: 0.8 }}
+                >
+                  <span
+                    className="text-xs font-bold uppercase tracking-[0.2em] drop-shadow-lg"
+                    style={{ color: chapter.accentColor }}
+                  >
+                    {chapter.era}
+                  </span>
+                  <h3 className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg mt-1">
+                    {chapter.title}
+                  </h3>
+                </motion.div>
+              </div>
+
+              {/* Year badge top right */}
+              <div className="absolute top-4 right-4 z-20">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={inView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ delay: 0.5, type: "spring" }}
+                  className="px-3 py-1.5 rounded-xl border border-white/20 bg-black/40 backdrop-blur-md text-xs font-mono text-white/80"
+                >
+                  {chapter.year}
+                </motion.div>
+              </div>
+
+              {/* Photo credit */}
+              {chapter.photoCredit && (
+                <span className="absolute bottom-2 right-4 z-20 text-[9px] text-white/30 font-mono">
+                  Photo: {chapter.photoCredit} / Unsplash
+                </span>
+              )}
+
+              {/* Top gradient accent line */}
               <div
-                className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${chapter.color} opacity-60 group-hover:opacity-100 transition-opacity`}
+                className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${chapter.color} opacity-80 z-20`}
               />
             </motion.div>
 
-            {/* Card content */}
-            <div className="p-6 md:p-8">
+            {/* ============================================ */}
+            {/* CARD CONTENT                                 */}
+            {/* ============================================ */}
+            <div className="p-6 md:p-8 relative">
               {/* Corner glow */}
               <div
                 className="absolute -top-20 -right-20 w-40 h-40 rounded-full blur-[80px] opacity-0 group-hover:opacity-20 transition-opacity duration-700 pointer-events-none"
                 style={{ background: chapter.accentColor }}
               />
 
-              {/* Year badge - desktop */}
-              <div className="hidden md:inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-background/50 text-xs font-mono text-muted-foreground mb-4">
-                {chapter.year}
-              </div>
-
-              {/* Era (desktop only) */}
-              <div className="hidden md:flex items-center gap-2 mb-2">
-                <span
-                  className="text-xs font-bold uppercase tracking-widest"
-                  style={{ color: chapter.accentColor }}
-                >
-                  {chapter.era}
-                </span>
-              </div>
-
-              <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-1">
-                {chapter.title}
-              </h3>
               <p className="text-sm text-muted-foreground mb-5 flex items-center gap-1.5">
                 <span className="text-lg">{chapter.image}</span>
                 {chapter.location}
@@ -255,7 +295,7 @@ function JourneyCard({
         </div>
       </motion.div>
 
-      {/* Spacer for the other side */}
+      {/* Spacer */}
       <div className="hidden md:block w-[calc(50%-4rem)]" />
     </div>
   );
@@ -303,7 +343,7 @@ export default function Journey() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3, duration: 0.6 }}
-          className="flex items-end justify-center gap-6 mb-20"
+          className="flex items-end justify-center gap-6 md:gap-8 mb-20"
         >
           {(["kid", "teen", "college", "professional", "builder"] as const).map(
             (stage, i) => (
@@ -312,12 +352,12 @@ export default function Journey() {
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.4 + i * 0.1 }}
+                transition={{ delay: 0.4 + i * 0.12 }}
                 className="flex flex-col items-center gap-1"
               >
                 <Avatar
                   stage={stage}
-                  size={20 + i * 8}
+                  size={22 + i * 9}
                   color={
                     ["#f59e0b", "#f43f5e", "#06b6d4", "#6366f1", "#8b5cf6"][i]
                   }
@@ -325,6 +365,12 @@ export default function Journey() {
                 <span className="text-[9px] font-mono text-muted-foreground mt-1">
                   {["Kid", "Teen", "Grad", "Pro", "Now"][i]}
                 </span>
+                <motion.div
+                  className="w-1 h-1 rounded-full mt-0.5"
+                  style={{ background: ["#f59e0b", "#f43f5e", "#06b6d4", "#6366f1", "#8b5cf6"][i] }}
+                  animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+                  transition={{ repeat: Infinity, duration: 2, delay: i * 0.2 }}
+                />
               </motion.div>
             )
           )}

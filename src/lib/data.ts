@@ -30,6 +30,9 @@ export const journeyChapters = [
       "Growing up in India, I was the kid who took apart every gadget in the house just to see how it worked. School wasn't just about grades — it was where I first discovered that I think differently. Math felt like a puzzle game. Science was magic with rules.",
     milestone: "Built my first website at 15 — a cricket score tracker in HTML that my friends actually used.",
     image: "🇮🇳",
+    // Indian village / rural India — Photo by Loren Joseph on Unsplash
+    photo: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1200&q=80&fit=crop",
+    photoCredit: "Loren Joseph",
   },
   {
     id: "intermediate",
@@ -44,6 +47,9 @@ export const journeyChapters = [
       "Intermediate was when programming stopped being a hobby and became an obsession. I stayed up late writing Python scripts, automating everything I could. I realized I didn't want to just use technology — I wanted to build it.",
     milestone: "Wrote my first Python automation script. Placed in regional coding competitions. Decided: Computer Science is the path.",
     image: "💻",
+    // Coding / programming setup — Photo by Clément Hélardot on Unsplash
+    photo: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&q=80&fit=crop",
+    photoCredit: "Clément Hélardot",
   },
   {
     id: "btech",
@@ -58,6 +64,9 @@ export const journeyChapters = [
       "Four years of intense engineering at GITAM University. I went deep — data structures, algorithms, machine learning, databases. But I didn't just study theory. I built real projects, contributed to teams, and developed a forecasting model for cryptocurrency prices using TensorFlow and Keras.",
     milestone: "B.Tech in Computer Science. Built a crypto price prediction model. Completed ML internship at Dhyanahitha.",
     image: "🏗️",
+    // Charminar, Hyderabad — Photo by Sunny Suman on Unsplash
+    photo: "https://images.unsplash.com/photo-1572435555646-7ad9a149ad91?w=1200&q=80&fit=crop",
+    photoCredit: "Sunny Suman",
     subEvents: [
       {
         year: "2022",
@@ -84,6 +93,9 @@ export const journeyChapters = [
       "Moving to New York wasn't just changing cities — it was changing the scale of my ambition. Pursuing an MBA in Business Analytics at NYIT Manhattan, I learned to think like a strategist while building like an engineer. Data visualization, statistical analysis, A/B testing, KPI metrics — I added the business layer to my engineering core.",
     milestone: "MBA in Business Analytics from NYIT. Built AI-powered book recommendation system with SVD + GPT-3.5. Bloomberg certified.",
     image: "🌆",
+    // Manhattan skyline at night — Photo by Zoshua Colah on Unsplash
+    photo: "https://images.unsplash.com/photo-1534430480872-3498386e7856?w=1200&q=80&fit=crop",
+    photoCredit: "Zoshua Colah",
     subEvents: [
       {
         year: "2024",
@@ -110,6 +122,9 @@ export const journeyChapters = [
       "Today, I stand at the intersection of engineering, data science, and business. I'm not just looking for a job — I'm looking for the right problem to solve. I build full-stack applications with AI at the core, and I bring a unique combination of technical depth and business acumen that most developers don't have.",
     milestone: "Actively building AI-powered applications. Seeking high-impact roles where I can ship products that matter.",
     image: "⚡",
+    // Jersey City skyline from waterfront — Photo by Joey Pedras on Unsplash
+    photo: "https://images.unsplash.com/photo-1589998059171-988d887df646?w=1200&q=80&fit=crop",
+    photoCredit: "Joey Pedras",
   },
 ];
 
