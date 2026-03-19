@@ -26,7 +26,7 @@ export default function Projects() {
           </h3>
           <p className="text-muted text-lg mb-12 max-w-2xl">
             Each project started with a real problem. Here&apos;s how I turned
-            frustration into features.
+            curiosity into working software.
           </p>
 
           <div className="space-y-8">
@@ -45,7 +45,7 @@ export default function Projects() {
 
                 <div className="p-6 md:p-8">
                   {/* Header */}
-                  <div className="flex items-start justify-between mb-6">
+                  <div className="flex items-start justify-between mb-2">
                     <div>
                       <h4 className="text-xl font-bold text-foreground group-hover:text-accent-light transition-colors">
                         {project.title}
@@ -59,6 +59,11 @@ export default function Projects() {
                       className="text-muted-foreground group-hover:text-accent transition-colors flex-shrink-0 mt-1"
                     />
                   </div>
+
+                  {/* Meta */}
+                  <p className="text-xs text-muted-foreground font-mono mb-6">
+                    {project.institution} &middot; {project.period}
+                  </p>
 
                   {/* Story grid */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">

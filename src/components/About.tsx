@@ -22,48 +22,55 @@ export default function About() {
             About
           </h2>
           <h3 className="text-3xl md:text-4xl font-bold mb-8 leading-tight">
-            I&apos;m not just a developer.
+            I don&apos;t just write code.
             <br />
-            <span className="text-muted">I&apos;m a product engineer.</span>
+            <span className="text-muted">I solve business problems.</span>
           </h3>
 
           <div className="space-y-5 text-muted text-lg leading-relaxed">
             <p>
-              Most developers write code. I solve problems. There&apos;s a difference.
-              Every line I write is tied to a user outcome — faster load times,
-              fewer clicks, clearer feedback. I think about the person using the
-              software, not just the software itself.
+              I&apos;m a results-driven developer with a unique edge: I think like
+              a business analyst and build like an engineer. With a{" "}
+              <span className="text-foreground font-medium">
+                B.Tech in Computer Science
+              </span>{" "}
+              from GITAM University and an{" "}
+              <span className="text-foreground font-medium">
+                MBA in Business Analytics
+              </span>{" "}
+              from NYIT Manhattan, I bridge the gap between technical
+              capabilities and business objectives.
             </p>
             <p>
-              I&apos;ve spent the past several years building full-stack applications
-              across SaaS, fintech, and developer tools. I&apos;m equally comfortable
-              designing a database schema, building a React component system, or
-              debating product strategy with a PM.
+              I&apos;m proficient in Python, SQL, JavaScript, React, and Next.js —
+              but I don&apos;t just write code for the sake of it. I transform
+              complex data into actionable insights, build AI-powered
+              applications, and create dashboards that drive real decisions.
             </p>
             <p>
               What sets me apart:{" "}
               <span className="text-foreground font-medium">
-                I ship fast without cutting corners.
+                I speak both business and engineering fluently.
               </span>{" "}
-              I care about performance, accessibility, and clean architecture —
-              but I also know that software that never ships helps nobody.
+              I can discuss KPI metrics with stakeholders in the morning and
+              architect a TensorFlow pipeline in the afternoon.
             </p>
           </div>
 
-          {/* Tech philosophy cards */}
+          {/* Identity cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
             {[
               {
                 label: "Full Stack",
-                desc: "React to Redis. I own the entire stack.",
+                desc: "React, Next.js, Node.js, Python — end to end.",
               },
               {
-                label: "Product Thinking",
-                desc: "I start with the user problem, then work backwards.",
+                label: "Analytics-Driven",
+                desc: "Tableau, Power BI, SQL — data tells the story.",
               },
               {
                 label: "AI-Forward",
-                desc: "Building with LLMs, embeddings, and intelligent systems.",
+                desc: "GPT, TensorFlow, SVD — building intelligent systems.",
               },
             ].map((item) => (
               <div

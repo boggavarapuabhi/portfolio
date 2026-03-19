@@ -1,10 +1,11 @@
 export const siteConfig = {
-  name: "Abhi Boggavarapu",
+  name: "Hemanth Boggavarapu",
   title: "Full Stack Developer",
-  email: "abhi.boggavarapu@gmail.com",
+  email: "boggavarapuabhi@gmail.com",
+  phone: "+1 917-951-7080",
   github: "https://github.com/boggavarapuabhi",
-  linkedin: "https://linkedin.com/in/boggavarapuabhi",
-  location: "United States",
+  linkedin: "https://linkedin.com/in/hemanth-boggavarapu",
+  location: "Jersey City, NJ",
 };
 
 export const navLinks = [
@@ -12,7 +13,7 @@ export const navLinks = [
   { label: "Skills", href: "#skills" },
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
-  { label: "Mindset", href: "#mindset" },
+  { label: "Education", href: "#education" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -21,170 +22,158 @@ export const skills = {
     "React",
     "Next.js",
     "TypeScript",
-    "Tailwind CSS",
-    "Redux",
-    "HTML5/CSS3",
+    "JavaScript",
+    "HTML/CSS",
+    "Responsive UI",
   ],
-  "Backend": [
+  "Backend & Data": [
     "Node.js",
     "Express",
     "Python",
     "REST APIs",
-    "GraphQL",
-    "Microservices",
-  ],
-  "Data & AI": [
     "PostgreSQL",
-    "MongoDB",
-    "Redis",
-    "OpenAI API",
-    "LangChain",
-    "Vector DBs",
+    "Supabase",
   ],
-  "DevOps & Tools": [
-    "AWS",
-    "Docker",
-    "CI/CD",
-    "Git",
-    "Vercel",
-    "Terraform",
+  "AI & Analytics": [
+    "OpenAI GPT",
+    "TensorFlow",
+    "Keras",
+    "Scikit-learn",
+    "Prompt Engineering",
+    "Time-Series Forecasting",
+  ],
+  "Tools & Cloud": [
+    "Azure",
+    "Git & CI/CD",
+    "Tableau",
+    "Power BI",
+    "Pandas",
+    "OpenCV",
   ],
 };
 
 export const experiences = [
   {
-    company: "Enterprise SaaS Company",
-    role: "Full Stack Developer",
-    period: "2022 — Present",
-    location: "United States",
-    highlights: [
-      "Architected and shipped a real-time analytics dashboard serving 10K+ daily active users, reducing data latency from 30s to under 2s",
-      "Led migration from monolithic REST API to microservices architecture, improving deployment frequency by 4x",
-      "Built AI-powered search feature using OpenAI embeddings + vector database, increasing user engagement by 35%",
-      "Mentored 3 junior developers and established code review practices that reduced production bugs by 40%",
-    ],
-  },
-  {
-    company: "Growth-Stage Startup",
-    role: "Software Engineer",
-    period: "2020 — 2022",
-    location: "United States",
-    highlights: [
-      "Developed customer-facing React application from 0→1 that onboarded 5,000+ users in first quarter",
-      "Designed and implemented payment integration (Stripe) processing $2M+ in annual transactions",
-      "Optimized database queries and implemented caching layer, reducing API response times by 60%",
-      "Introduced automated testing pipeline achieving 85% code coverage across the platform",
-    ],
-  },
-  {
-    company: "Tech Consultancy",
-    role: "Junior Developer",
-    period: "2018 — 2020",
+    company: "Dhyanahitha",
+    role: "Machine Learning Intern",
+    period: "Jun 2022 — Jul 2022",
     location: "India",
     highlights: [
-      "Built 8+ client-facing web applications using React and Node.js across healthcare and fintech verticals",
-      "Created reusable component library used across 4 internal projects, saving ~200 dev hours quarterly",
-      "Collaborated directly with product managers to translate user research into technical specifications",
+      "Completed intensive hands-on training in Machine Learning with Python, covering data preprocessing, model development, and hyperparameter tuning techniques",
+      "Contributed to team-based ML project planning and strategic implementation discussions, bridging technical execution with business outcomes",
+      "Collaborated using Git-based version-controlled workflows and rigorous code-review practices across cross-functional teams",
     ],
   },
 ];
 
+export const education = [
+  {
+    degree: "Master of Business Administration",
+    major: "Business Analytics",
+    school: "New York Institute of Technology",
+    location: "Manhattan, NY",
+    period: "Sept 2023 — May 2025",
+  },
+  {
+    degree: "Bachelor of Technology",
+    major: "Computer Science",
+    school: "GITAM University",
+    location: "Hyderabad, India",
+    period: "Aug 2019 — May 2023",
+  },
+];
+
+export const certifications = [
+  { name: "Bloomberg Market Concepts", issuer: "Bloomberg", date: "April 2024" },
+  { name: "Agile with Atlassian Jira", issuer: "Atlassian University", date: "November 2022" },
+  { name: "Database Management Essentials", issuer: "University of Colorado System", date: "November 2021" },
+];
+
 export const projects = [
   {
-    title: "AI-Powered Code Review Assistant",
-    tagline: "Ship better code, faster.",
+    title: "Book Recommendation System Using SVD",
+    tagline: "AI-powered reading, personalized.",
     problem:
-      "Engineering teams spend 30% of their time on code reviews. Most feedback is repetitive — style issues, common bugs, missing tests. Senior engineers get bottlenecked reviewing junior code.",
+      "Readers are overwhelmed by millions of books. Traditional recommendation systems lack personalization and interpretability — users get suggestions but never understand why a book was recommended.",
     solution:
-      "Built an AI-powered code review tool that integrates with GitHub PRs. It analyzes diffs using LLMs, provides contextual feedback, flags potential bugs, and suggests improvements — all before a human reviewer even looks at the code.",
-    techStack: ["Next.js", "Python", "OpenAI API", "GitHub API", "PostgreSQL", "Redis"],
+      "Built a web-based recommendation engine using Singular Value Decomposition on the Book-Crossing dataset (1.1M+ ratings). Integrated a Gradio interface for real-time input and GPT-3.5 to generate human-readable explanations for every recommendation.",
+    techStack: ["Python", "Surprise Library", "SVD", "Gradio", "OpenAI GPT-3.5", "REST APIs"],
     impact: [
-      "Reduced average code review time by 45%",
-      "Caught 23% more bugs before production",
-      "Adopted by 3 internal teams within first month",
+      "RMSE of 1.6374 on 1.1M+ ratings",
+      "Real-time AI-explained recommendations",
+      "Prompt-engineered GPT responses for clarity",
     ],
     gradient: "from-indigo-500 to-purple-600",
+    period: "Apr 2025 — May 2025",
+    institution: "NYIT Manhattan",
   },
   {
-    title: "Real-Time Collaboration Platform",
-    tagline: "Google Docs meets Figma for product teams.",
+    title: "Cryptocurrency Price Prediction",
+    tagline: "ML-driven market intelligence.",
     problem:
-      "Product teams juggle between Notion, Slack, Figma, and Jira. Context gets lost. Decisions aren't documented. Alignment meetings waste hours every week.",
+      "Crypto markets are volatile and sentiment-driven. Investors need data-backed insights, not guesses. Traditional forecasting models fail to account for social sentiment and rapid market shifts.",
     solution:
-      "Created a unified workspace where product specs, designs, and tasks live together. Real-time multiplayer editing, embedded design previews, and automated standup summaries powered by AI.",
-    techStack: ["React", "WebSockets", "Node.js", "MongoDB", "AWS S3", "OpenAI"],
+      "Developed a machine learning forecasting model combining time-series analysis with sentiment analysis to deliver actionable investment insights. Built with TensorFlow/Keras, exposed via REST APIs, and connected to frontend dashboards for real-time visualization.",
+    techStack: ["Python", "TensorFlow", "Keras", "Pandas", "REST APIs", "Git"],
     impact: [
-      "Supported 50+ concurrent users with <100ms latency",
-      "Reduced alignment meetings by 60%",
-      "Processed 10K+ documents in first 3 months",
+      "Actionable investment insights from ML",
+      "Sentiment + price trend correlation",
+      "Full-stack: model to dashboard pipeline",
     ],
     gradient: "from-cyan-500 to-blue-600",
-  },
-  {
-    title: "Smart Expense Tracker",
-    tagline: "Financial clarity in 30 seconds.",
-    problem:
-      "Most expense trackers require manual categorization. Users start with enthusiasm but abandon the app within 2 weeks because logging expenses is tedious.",
-    solution:
-      "Built a mobile-first expense tracker with AI auto-categorization. Users snap a receipt photo or forward an email — the app extracts amount, vendor, and category automatically using OCR and NLP.",
-    techStack: ["React Native", "Node.js", "Tesseract OCR", "PostgreSQL", "Stripe", "Chart.js"],
-    impact: [
-      "92% auto-categorization accuracy",
-      "3x higher 30-day retention vs competitors",
-      "5,000+ receipts processed in beta",
-    ],
-    gradient: "from-emerald-500 to-teal-600",
+    period: "Mar 2023 — May 2023",
+    institution: "GITAM Hyderabad",
   },
 ];
 
 export const mindsetItems = [
   {
     icon: "product",
-    title: "Product-First Engineering",
+    title: "Data-Driven Decisions",
     description:
-      "I don't just write code — I ask why we're building it. Every feature I ship starts with a user problem, not a ticket. I think in user flows, not just data flows.",
+      "I don't build on assumptions — I validate with data. Whether it's A/B testing a feature or analyzing KPI metrics, every decision I make is grounded in evidence and user behavior.",
   },
   {
     icon: "speed",
-    title: "Bias for Speed",
+    title: "Bridge Builder",
     description:
-      "Ship fast, learn faster. I prototype in days, not weeks. I believe the best architecture is the one that lets you iterate quickly while keeping the system reliable.",
+      "I sit at the intersection of business and technology. With an MBA in Analytics and a B.Tech in CS, I translate complex technical capabilities into business impact — and vice versa.",
   },
   {
     icon: "quality",
-    title: "Craft & Quality",
+    title: "Ship with Craft",
     description:
-      "Clean code is a feature. I write code that other developers enjoy reading. Thoughtful naming, clear abstractions, and comprehensive tests aren't optional — they're the baseline.",
+      "Clean code, thoughtful architecture, and attention to detail aren't optional — they're the baseline. I write code that's readable, maintainable, and built to last.",
   },
   {
     icon: "ownership",
     title: "End-to-End Ownership",
     description:
-      "From database schema to pixel-perfect UI. I own the full stack because great products don't have seams between frontend and backend. I deploy what I build and monitor what I deploy.",
+      "From data pipeline to polished UI. I own the full stack because great products don't have seams. I gather requirements, build the solution, and measure the outcome.",
   },
 ];
 
 export const buildingItems = [
   {
     emoji: "🧠",
-    title: "AI-Native Developer Tools",
-    description: "Exploring how LLMs can make developers 10x more productive — beyond just code completion.",
+    title: "AI-Powered Applications",
+    description: "Exploring how LLMs and prompt engineering can create intelligent, user-facing products — beyond simple chatbots.",
+  },
+  {
+    emoji: "📊",
+    title: "Analytics Engineering",
+    description: "Building data pipelines and dashboards that turn raw data into clear, actionable business insights at scale.",
   },
   {
     emoji: "⚡",
-    title: "Performance Engineering",
-    description: "Deep-diving into edge computing, streaming SSR, and sub-100ms page loads at scale.",
-  },
-  {
-    emoji: "🎨",
-    title: "Design Engineering",
-    description: "Bridging the gap between design and code with component systems that designers can actually use.",
+    title: "Full Stack Products",
+    description: "Shipping end-to-end web apps with Next.js, Supabase, and modern tooling — from idea to deployment.",
   },
 ];
 
 export const achievements = [
-  { metric: "10K+", label: "Users Served" },
-  { metric: "45%", label: "Faster Reviews" },
-  { metric: "99.9%", label: "Uptime Delivered" },
-  { metric: "15+", label: "Projects Shipped" },
+  { metric: "1.1M+", label: "Ratings Processed" },
+  { metric: "MBA", label: "Business Analytics" },
+  { metric: "B.Tech", label: "Computer Science" },
+  { metric: "3", label: "Certifications" },
 ];

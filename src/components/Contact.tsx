@@ -3,7 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { siteConfig } from "@/lib/data";
-import { Mail, Github, Linkedin, MapPin } from "lucide-react";
+import { Mail, Github, Linkedin, MapPin, Phone } from "lucide-react";
 
 export default function Contact() {
   const ref = useRef(null);
@@ -29,8 +29,8 @@ export default function Contact() {
           </h3>
           <p className="text-muted text-lg mb-12 max-w-xl mx-auto">
             I&apos;m actively looking for full-time opportunities where I can
-            contribute, grow, and make a real impact. If you&apos;re hiring —
-            let&apos;s talk.
+            combine my engineering skills with business analytics to make a real
+            impact. If you&apos;re hiring — let&apos;s talk.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
@@ -53,10 +53,14 @@ export default function Contact() {
           </div>
 
           {/* Info cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
             <div className="p-4 rounded-xl border border-border bg-card/50 flex items-center gap-3 justify-center">
               <Mail size={16} className="text-accent" />
               <span className="text-sm text-muted">{siteConfig.email}</span>
+            </div>
+            <div className="p-4 rounded-xl border border-border bg-card/50 flex items-center gap-3 justify-center">
+              <Phone size={16} className="text-accent" />
+              <span className="text-sm text-muted">{siteConfig.phone}</span>
             </div>
             <a
               href={siteConfig.github}

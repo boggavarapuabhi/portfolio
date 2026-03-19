@@ -2,23 +2,23 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Abhi Boggavarapu | Full Stack Developer",
+  title: "Hemanth Boggavarapu | Full Stack Developer & Business Analyst",
   description:
-    "Product-minded Full Stack Developer building high-impact software at the intersection of engineering and design. Specializing in React, Node.js, and AI-powered applications.",
+    "Full Stack Developer with an MBA in Business Analytics and B.Tech in Computer Science. Building AI-powered applications and data-driven solutions with React, Python, and modern web technologies.",
   keywords: [
     "Full Stack Developer",
-    "Software Engineer",
+    "Business Analyst",
     "React",
     "Next.js",
-    "Node.js",
-    "TypeScript",
+    "Python",
+    "Machine Learning",
+    "Data Analytics",
     "AI",
-    "Product Engineer",
   ],
   openGraph: {
-    title: "Abhi Boggavarapu | Full Stack Developer",
+    title: "Hemanth Boggavarapu | Full Stack Developer & Business Analyst",
     description:
-      "Product-minded Full Stack Developer building high-impact software.",
+      "Full Stack Developer bridging business analytics and engineering.",
     type: "website",
   },
 };

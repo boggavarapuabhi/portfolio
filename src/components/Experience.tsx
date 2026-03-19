@@ -22,11 +22,11 @@ export default function Experience() {
             Experience
           </h2>
           <h3 className="text-3xl md:text-4xl font-bold mb-4">
-            Where I&apos;ve made impact
+            Where I&apos;ve built &amp; learned
           </h3>
           <p className="text-muted text-lg mb-12 max-w-2xl">
-            Not just job titles — real outcomes. I measure my work by the
-            problems I&apos;ve solved and the systems I&apos;ve improved.
+            Hands-on experience applying machine learning, data analysis, and
+            engineering to real-world problems.
           </p>
 
           <div className="space-y-8">

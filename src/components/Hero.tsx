@@ -36,11 +36,12 @@ export default function Hero() {
 
           {/* Tagline */}
           <p className="text-xl md:text-2xl text-muted max-w-2xl mx-auto mb-4 leading-relaxed">
-            I build products that users love and systems that scale.
+            I turn data into decisions and code into products.
           </p>
           <p className="text-base text-muted-foreground max-w-xl mx-auto mb-10">
-            Full Stack Developer with a product mindset. I turn complex problems
-            into clean, performant software — from database to deploy.
+            Full Stack Developer &amp; Business Analyst with an MBA in Analytics
+            and a B.Tech in CS. I bridge the gap between what the data says and
+            what the product needs.
           </p>
 
           {/* CTA buttons */}
