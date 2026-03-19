@@ -1,29 +1,29 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
+import Journey from "@/components/Journey";
 import Skills from "@/components/Skills";
-import Experience from "@/components/Experience";
 import Projects from "@/components/Projects";
-import Education from "@/components/Education";
 import Mindset from "@/components/Mindset";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import ParticleField from "@/components/ParticleField";
+import ScrollProgress from "@/components/ScrollProgress";
 
 export default function Home() {
   return (
-    <>
+    <div className="noise">
+      <ParticleField />
+      <ScrollProgress />
       <Navbar />
-      <main>
+      <main className="relative z-10">
         <Hero />
-        <About />
+        <Journey />
         <Skills />
-        <Experience />
         <Projects />
-        <Education />
         <Mindset />
         <Contact />
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

@@ -9,99 +9,161 @@ export const siteConfig = {
 };
 
 export const navLinks = [
-  { label: "About", href: "#about" },
+  { label: "Journey", href: "#journey" },
   { label: "Skills", href: "#skills" },
-  { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
-  { label: "Education", href: "#education" },
+  { label: "Mindset", href: "#mindset" },
   { label: "Contact", href: "#contact" },
 ];
 
+export const journeyChapters = [
+  {
+    id: "school",
+    year: "2005 — 2017",
+    era: "The Foundation",
+    title: "Where it all began",
+    location: "India",
+    emoji: "🏫",
+    color: "from-amber-500 to-orange-600",
+    accentColor: "#f59e0b",
+    description:
+      "Growing up in India, I was the kid who took apart every gadget in the house just to see how it worked. School wasn't just about grades — it was where I first discovered that I think differently. Math felt like a puzzle game. Science was magic with rules.",
+    milestone: "Built my first website at 15 — a cricket score tracker in HTML that my friends actually used.",
+    image: "🇮🇳",
+  },
+  {
+    id: "intermediate",
+    year: "2017 — 2019",
+    era: "The Spark",
+    title: "Discovering the code",
+    location: "India",
+    emoji: "💡",
+    color: "from-rose-500 to-pink-600",
+    accentColor: "#f43f5e",
+    description:
+      "Intermediate was when programming stopped being a hobby and became an obsession. I stayed up late writing Python scripts, automating everything I could. I realized I didn't want to just use technology — I wanted to build it.",
+    milestone: "Wrote my first Python automation script. Placed in regional coding competitions. Decided: Computer Science is the path.",
+    image: "💻",
+  },
+  {
+    id: "btech",
+    year: "2019 — 2023",
+    era: "The Engineering Years",
+    title: "Building the engineer",
+    location: "GITAM University, Hyderabad",
+    emoji: "🎓",
+    color: "from-cyan-500 to-blue-600",
+    accentColor: "#06b6d4",
+    description:
+      "Four years of intense engineering at GITAM University. I went deep — data structures, algorithms, machine learning, databases. But I didn't just study theory. I built real projects, contributed to teams, and developed a forecasting model for cryptocurrency prices using TensorFlow and Keras.",
+    milestone: "B.Tech in Computer Science. Built a crypto price prediction model. Completed ML internship at Dhyanahitha.",
+    image: "🏗️",
+    subEvents: [
+      {
+        year: "2022",
+        title: "ML Internship — Dhyanahitha",
+        desc: "Hands-on machine learning with Python: data preprocessing, model development, hyperparameter tuning, and Git-based collaboration.",
+      },
+      {
+        year: "2023",
+        title: "Crypto Price Prediction",
+        desc: "Built ML forecasting model with TensorFlow, Keras, and Pandas. Sentiment analysis + time-series predictions via REST APIs.",
+      },
+    ],
+  },
+  {
+    id: "nyc",
+    year: "2023 — 2025",
+    era: "The New York Chapter",
+    title: "Leveling up in Manhattan",
+    location: "NYIT, Manhattan, New York",
+    emoji: "🗽",
+    color: "from-indigo-500 to-purple-600",
+    accentColor: "#6366f1",
+    description:
+      "Moving to New York wasn't just changing cities — it was changing the scale of my ambition. Pursuing an MBA in Business Analytics at NYIT Manhattan, I learned to think like a strategist while building like an engineer. Data visualization, statistical analysis, A/B testing, KPI metrics — I added the business layer to my engineering core.",
+    milestone: "MBA in Business Analytics from NYIT. Built AI-powered book recommendation system with SVD + GPT-3.5. Bloomberg certified.",
+    image: "🌆",
+    subEvents: [
+      {
+        year: "2024",
+        title: "Bloomberg Market Concepts",
+        desc: "Certified in financial markets, economics, and data-driven investment analysis.",
+      },
+      {
+        year: "2025",
+        title: "Book Recommendation System",
+        desc: "SVD-based engine processing 1.1M+ ratings with Gradio UI and GPT-3.5 explainability. RMSE: 1.6374.",
+      },
+    ],
+  },
+  {
+    id: "now",
+    year: "2025 — Present",
+    era: "The Builder",
+    title: "What I'm building now",
+    location: "Jersey City, NJ",
+    emoji: "🚀",
+    color: "from-violet-500 to-fuchsia-600",
+    accentColor: "#8b5cf6",
+    description:
+      "Today, I stand at the intersection of engineering, data science, and business. I'm not just looking for a job — I'm looking for the right problem to solve. I build full-stack applications with AI at the core, and I bring a unique combination of technical depth and business acumen that most developers don't have.",
+    milestone: "Actively building AI-powered applications. Seeking high-impact roles where I can ship products that matter.",
+    image: "⚡",
+  },
+];
+
 export const skills = {
+  "Languages": [
+    { name: "Python", level: 90 },
+    { name: "JavaScript", level: 85 },
+    { name: "TypeScript", level: 80 },
+    { name: "SQL", level: 90 },
+    { name: "C", level: 70 },
+  ],
   "Frontend": [
-    "React",
-    "Next.js",
-    "TypeScript",
-    "JavaScript",
-    "HTML/CSS",
-    "Responsive UI",
+    { name: "React", level: 85 },
+    { name: "Next.js", level: 80 },
+    { name: "HTML/CSS", level: 90 },
+    { name: "Tailwind CSS", level: 85 },
+    { name: "Responsive Design", level: 85 },
   ],
   "Backend & Data": [
-    "Node.js",
-    "Express",
-    "Python",
-    "REST APIs",
-    "PostgreSQL",
-    "Supabase",
+    { name: "Node.js", level: 80 },
+    { name: "Express", level: 80 },
+    { name: "PostgreSQL", level: 85 },
+    { name: "Supabase", level: 75 },
+    { name: "REST APIs", level: 90 },
   ],
-  "AI & Analytics": [
-    "OpenAI GPT",
-    "TensorFlow",
-    "Keras",
-    "Scikit-learn",
-    "Prompt Engineering",
-    "Time-Series Forecasting",
+  "AI & ML": [
+    { name: "OpenAI GPT", level: 85 },
+    { name: "TensorFlow", level: 75 },
+    { name: "Keras", level: 75 },
+    { name: "Scikit-learn", level: 80 },
+    { name: "Prompt Engineering", level: 85 },
   ],
-  "Tools & Cloud": [
-    "Azure",
-    "Git & CI/CD",
-    "Tableau",
-    "Power BI",
-    "Pandas",
-    "OpenCV",
+  "Analytics & Tools": [
+    { name: "Tableau", level: 85 },
+    { name: "Power BI", level: 80 },
+    { name: "Pandas", level: 85 },
+    { name: "Git & CI/CD", level: 85 },
+    { name: "Azure", level: 70 },
   ],
 };
 
-export const experiences = [
-  {
-    company: "Dhyanahitha",
-    role: "Machine Learning Intern",
-    period: "Jun 2022 — Jul 2022",
-    location: "India",
-    highlights: [
-      "Completed intensive hands-on training in Machine Learning with Python, covering data preprocessing, model development, and hyperparameter tuning techniques",
-      "Contributed to team-based ML project planning and strategic implementation discussions, bridging technical execution with business outcomes",
-      "Collaborated using Git-based version-controlled workflows and rigorous code-review practices across cross-functional teams",
-    ],
-  },
-];
-
-export const education = [
-  {
-    degree: "Master of Business Administration",
-    major: "Business Analytics",
-    school: "New York Institute of Technology",
-    location: "Manhattan, NY",
-    period: "Sept 2023 — May 2025",
-  },
-  {
-    degree: "Bachelor of Technology",
-    major: "Computer Science",
-    school: "GITAM University",
-    location: "Hyderabad, India",
-    period: "Aug 2019 — May 2023",
-  },
-];
-
-export const certifications = [
-  { name: "Bloomberg Market Concepts", issuer: "Bloomberg", date: "April 2024" },
-  { name: "Agile with Atlassian Jira", issuer: "Atlassian University", date: "November 2022" },
-  { name: "Database Management Essentials", issuer: "University of Colorado System", date: "November 2021" },
-];
-
 export const projects = [
   {
-    title: "Book Recommendation System Using SVD",
-    tagline: "AI-powered reading, personalized.",
+    title: "Book Recommendation System",
+    tagline: "AI-powered reading, personalized and explained.",
     problem:
-      "Readers are overwhelmed by millions of books. Traditional recommendation systems lack personalization and interpretability — users get suggestions but never understand why a book was recommended.",
+      "Readers drown in millions of titles. Traditional recommendation engines are black boxes — they suggest books but never explain why, killing user trust and engagement.",
     solution:
-      "Built a web-based recommendation engine using Singular Value Decomposition on the Book-Crossing dataset (1.1M+ ratings). Integrated a Gradio interface for real-time input and GPT-3.5 to generate human-readable explanations for every recommendation.",
-    techStack: ["Python", "Surprise Library", "SVD", "Gradio", "OpenAI GPT-3.5", "REST APIs"],
+      "Engineered an SVD-based recommendation engine on the Book-Crossing dataset (1.1M+ ratings). Built a Gradio interface for real-time interaction and integrated GPT-3.5 to generate human-readable explanations for every recommendation using prompt engineering.",
+    techStack: ["Python", "SVD / Surprise", "Gradio", "OpenAI GPT-3.5", "REST APIs", "Prompt Engineering"],
     impact: [
-      "RMSE of 1.6374 on 1.1M+ ratings",
-      "Real-time AI-explained recommendations",
-      "Prompt-engineered GPT responses for clarity",
+      "1.1M+ ratings processed",
+      "RMSE of 1.6374",
+      "AI-explained recommendations",
     ],
     gradient: "from-indigo-500 to-purple-600",
     period: "Apr 2025 — May 2025",
@@ -109,16 +171,16 @@ export const projects = [
   },
   {
     title: "Cryptocurrency Price Prediction",
-    tagline: "ML-driven market intelligence.",
+    tagline: "ML-driven market intelligence for smarter investing.",
     problem:
-      "Crypto markets are volatile and sentiment-driven. Investors need data-backed insights, not guesses. Traditional forecasting models fail to account for social sentiment and rapid market shifts.",
+      "Crypto markets move on sentiment, not just data. Traditional models miss the human factor — social media buzz, fear, greed. Investors need predictions that account for both numbers and noise.",
     solution:
-      "Developed a machine learning forecasting model combining time-series analysis with sentiment analysis to deliver actionable investment insights. Built with TensorFlow/Keras, exposed via REST APIs, and connected to frontend dashboards for real-time visualization.",
-    techStack: ["Python", "TensorFlow", "Keras", "Pandas", "REST APIs", "Git"],
+      "Built a hybrid forecasting model combining time-series analysis with sentiment analysis. Developed with TensorFlow, Keras, and Pandas for model training. Exposed predictions through REST API endpoints integrated with interactive frontend dashboards.",
+    techStack: ["Python", "TensorFlow", "Keras", "Pandas", "REST APIs", "Git Workflows"],
     impact: [
-      "Actionable investment insights from ML",
-      "Sentiment + price trend correlation",
-      "Full-stack: model to dashboard pipeline",
+      "Sentiment + price correlation",
+      "Real-time dashboard predictions",
+      "Full ML pipeline: data to deploy",
     ],
     gradient: "from-cyan-500 to-blue-600",
     period: "Mar 2023 — May 2023",
@@ -128,52 +190,40 @@ export const projects = [
 
 export const mindsetItems = [
   {
-    icon: "product",
-    title: "Data-Driven Decisions",
+    icon: "bridge",
+    title: "Business × Engineering",
     description:
-      "I don't build on assumptions — I validate with data. Whether it's A/B testing a feature or analyzing KPI metrics, every decision I make is grounded in evidence and user behavior.",
+      "MBA + B.Tech isn't just two degrees — it's a superpower. I translate boardroom strategy into production code and engineering constraints into business language.",
   },
   {
-    icon: "speed",
-    title: "Bridge Builder",
+    icon: "data",
+    title: "Data-Driven Everything",
     description:
-      "I sit at the intersection of business and technology. With an MBA in Analytics and a B.Tech in CS, I translate complex technical capabilities into business impact — and vice versa.",
+      "I don't guess. I measure. From A/B testing to KPI dashboards, every decision I make is backed by evidence. Intuition is good. Intuition plus data is unstoppable.",
   },
   {
-    icon: "quality",
-    title: "Ship with Craft",
+    icon: "craft",
+    title: "Craft Over Shortcuts",
     description:
-      "Clean code, thoughtful architecture, and attention to detail aren't optional — they're the baseline. I write code that's readable, maintainable, and built to last.",
+      "Clean architecture, thoughtful naming, comprehensive tests. I write code that my future self (and teammates) will thank me for. Quality isn't a phase — it's the default.",
   },
   {
-    icon: "ownership",
-    title: "End-to-End Ownership",
+    icon: "ship",
+    title: "Ship, Learn, Iterate",
     description:
-      "From data pipeline to polished UI. I own the full stack because great products don't have seams. I gather requirements, build the solution, and measure the outcome.",
+      "Perfect is the enemy of shipped. I prototype fast, gather feedback faster, and iterate until the product clicks. The best architecture is the one that actually launches.",
   },
 ];
 
-export const buildingItems = [
-  {
-    emoji: "🧠",
-    title: "AI-Powered Applications",
-    description: "Exploring how LLMs and prompt engineering can create intelligent, user-facing products — beyond simple chatbots.",
-  },
-  {
-    emoji: "📊",
-    title: "Analytics Engineering",
-    description: "Building data pipelines and dashboards that turn raw data into clear, actionable business insights at scale.",
-  },
-  {
-    emoji: "⚡",
-    title: "Full Stack Products",
-    description: "Shipping end-to-end web apps with Next.js, Supabase, and modern tooling — from idea to deployment.",
-  },
+export const certifications = [
+  { name: "Bloomberg Market Concepts", issuer: "Bloomberg", date: "April 2024", emoji: "📈" },
+  { name: "Agile with Atlassian Jira", issuer: "Atlassian University", date: "Nov 2022", emoji: "🏃" },
+  { name: "Database Management Essentials", issuer: "Univ. of Colorado", date: "Nov 2021", emoji: "🗄️" },
 ];
 
 export const achievements = [
-  { metric: "1.1M+", label: "Ratings Processed" },
-  { metric: "MBA", label: "Business Analytics" },
-  { metric: "B.Tech", label: "Computer Science" },
-  { metric: "3", label: "Certifications" },
+  { metric: "1.1M+", label: "Ratings Processed", icon: "📊" },
+  { metric: "2", label: "Countries Lived In", icon: "🌍" },
+  { metric: "3", label: "Certifications", icon: "🏆" },
+  { metric: "∞", label: "Curiosity", icon: "🧠" },
 ];

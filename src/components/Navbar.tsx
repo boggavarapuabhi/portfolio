@@ -16,17 +16,20 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-background/80 backdrop-blur-xl border-b border-border"
+          ? "bg-background/60 backdrop-blur-2xl border-b border-border/50 shadow-xl shadow-background/20"
           : "bg-transparent"
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <a
           href="#"
-          className="font-mono text-sm font-semibold tracking-tight text-foreground hover:text-accent-light transition-colors"
+          className="font-mono text-sm font-bold tracking-tight text-foreground hover:text-accent-light transition-colors duration-300"
         >
           {siteConfig.name.split(" ")[0].toLowerCase()}
           <span className="text-accent">.</span>
@@ -35,57 +38,67 @@ export default function Navbar() {
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
+          {navLinks.map((link, i) => (
+            <motion.a
               key={link.href}
               href={link.href}
-              className="text-sm text-muted hover:text-foreground transition-colors duration-200"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 * i }}
+              className="text-sm text-muted hover:text-foreground transition-colors duration-300 relative group"
             >
               {link.label}
-            </a>
+              <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent group-hover:w-full transition-all duration-300" />
+            </motion.a>
           ))}
-          <a
+          <motion.a
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.6 }}
             href="#contact"
-            className="text-sm bg-accent hover:bg-accent-light text-white px-4 py-2 rounded-lg transition-colors duration-200"
+            className="text-sm bg-accent hover:bg-accent-light text-white px-5 py-2 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5"
           >
             Get in Touch
-          </a>
+          </motion.a>
         </div>
 
-        {/* Mobile toggle */}
+        {/* Mobile */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden text-muted hover:text-foreground"
+          className="md:hidden w-10 h-10 rounded-xl border border-border bg-card/50 flex items-center justify-center text-muted hover:text-foreground transition-colors"
           aria-label="Toggle menu"
         >
-          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          {mobileOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
       </div>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border"
+            initial={{ opacity: 0, height: 0, y: -10 }}
+            animate={{ opacity: 1, height: "auto", y: 0 }}
+            exit={{ opacity: 0, height: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-background/95 backdrop-blur-2xl border-b border-border overflow-hidden"
           >
-            <div className="px-6 py-4 flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <a
+            <div className="px-6 py-6 flex flex-col gap-5">
+              {navLinks.map((link, i) => (
+                <motion.a
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="text-sm text-muted hover:text-foreground transition-colors"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  className="text-lg text-muted hover:text-foreground transition-colors"
                 >
                   {link.label}
-                </a>
+                </motion.a>
               ))}
               <a
                 href="#contact"
                 onClick={() => setMobileOpen(false)}
-                className="text-sm bg-accent text-white px-4 py-2 rounded-lg text-center"
+                className="text-sm bg-accent text-white px-5 py-3 rounded-xl text-center mt-2"
               >
                 Get in Touch
               </a>
@@ -93,6 +106,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </motion.nav>
   );
 }
