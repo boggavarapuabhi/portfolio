@@ -27,16 +27,10 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a
-          href="#"
-          className="font-mono text-sm font-bold tracking-tight text-foreground hover:text-accent-light transition-colors duration-300"
-        >
-          {siteConfig.name.split(" ")[0].toLowerCase()}
-          <span className="text-accent">.</span>
-          dev
+        <a href="#" className="font-mono text-sm font-bold tracking-tight text-foreground hover:text-accent transition-colors duration-300">
+          {siteConfig.name.split(" ")[0].toLowerCase()}<span className="text-accent">.</span>dev
         </a>
 
-        {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link, i) => (
             <motion.a
@@ -56,13 +50,12 @@ export default function Navbar() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.6 }}
             href="#contact"
-            className="text-sm bg-accent hover:bg-accent-light text-white px-5 py-2 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5"
+            className="text-sm bg-accent hover:bg-accent-light text-background px-5 py-2 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5 font-medium"
           >
             Get in Touch
           </motion.a>
         </div>
 
-        {/* Mobile */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="md:hidden w-10 h-10 rounded-xl border border-border bg-card/50 flex items-center justify-center text-muted hover:text-foreground transition-colors"
@@ -75,31 +68,18 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0, y: -10 }}
-            animate={{ opacity: 1, height: "auto", y: 0 }}
-            exit={{ opacity: 0, height: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-background/95 backdrop-blur-2xl border-b border-border overflow-hidden"
           >
             <div className="px-6 py-6 flex flex-col gap-5">
-              {navLinks.map((link, i) => (
-                <motion.a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  className="text-lg text-muted hover:text-foreground transition-colors"
-                >
+              {navLinks.map((link) => (
+                <a key={link.href} href={link.href} onClick={() => setMobileOpen(false)} className="text-lg text-muted hover:text-foreground transition-colors">
                   {link.label}
-                </motion.a>
+                </a>
               ))}
-              <a
-                href="#contact"
-                onClick={() => setMobileOpen(false)}
-                className="text-sm bg-accent text-white px-5 py-3 rounded-xl text-center mt-2"
-              >
+              <a href="#contact" onClick={() => setMobileOpen(false)} className="text-sm bg-accent text-background px-5 py-3 rounded-xl text-center mt-2 font-medium">
                 Get in Touch
               </a>
             </div>

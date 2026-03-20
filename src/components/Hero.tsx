@@ -40,54 +40,40 @@ function Typewriter({ words, className }: { words: string[]; className?: string 
   );
 }
 
-function AnimatedCounter({ target, suffix = "" }: { target: string; suffix?: string }) {
+function AnimatedCounter({ target }: { target: string }) {
   const isNumber = /^\d+$/.test(target.replace(/[+,]/g, ""));
-  if (!isNumber) return <span>{target}{suffix}</span>;
-
+  if (!isNumber) return <span>{target}</span>;
   const num = parseInt(target.replace(/[+,]/g, ""));
-  const [count, setCount] = useState(0);
   const hasPlus = target.includes("+");
-
+  const [count, setCount] = useState(0);
   useEffect(() => {
     let start = 0;
-    const end = num;
-    const duration = 2000;
-    const step = Math.ceil(end / (duration / 16));
+    const step = Math.ceil(num / 125);
     const timer = setInterval(() => {
       start += step;
-      if (start >= end) {
-        setCount(end);
-        clearInterval(timer);
-      } else {
-        setCount(start);
-      }
+      if (start >= num) { setCount(num); clearInterval(timer); }
+      else setCount(start);
     }, 16);
     return () => clearInterval(timer);
   }, [num]);
-
-  return (
-    <span>
-      {count.toLocaleString()}{hasPlus ? "+" : ""}{suffix}
-    </span>
-  );
+  return <span>{count.toLocaleString()}{hasPlus ? "+" : ""}</span>;
 }
 
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Multiple ambient glows */}
-      <div className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-indigo-500/8 rounded-full blur-[150px] pointer-events-none animate-float" />
-      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-purple-500/6 rounded-full blur-[130px] pointer-events-none animate-float-delayed" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-cyan-500/5 rounded-full blur-[100px] pointer-events-none animate-float-slow" />
+      {/* Warm ambient glows */}
+      <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[160px] pointer-events-none animate-float" />
+      <div className="absolute bottom-1/3 right-1/3 w-[400px] h-[400px] bg-warm/4 rounded-full blur-[140px] pointer-events-none animate-float-delayed" />
 
       <div className="relative max-w-6xl mx-auto px-6 py-32 md:py-40">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.2 }}
+          transition={{ duration: 1.5 }}
           className="text-center"
         >
-          {/* Floating badge */}
+          {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -97,10 +83,10 @@ export default function Hero() {
             <span className="relative w-2 h-2 rounded-full bg-success">
               <span className="absolute inset-0 rounded-full bg-success animate-ping" />
             </span>
-            Open to opportunities — Let&apos;s build together
+            Open to opportunities
           </motion.div>
 
-          {/* Name with staggered letters */}
+          {/* Name */}
           <motion.h1
             className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4"
             initial={{ opacity: 0, y: 40 }}
@@ -111,7 +97,7 @@ export default function Hero() {
             <span className="gradient-text">{siteConfig.name.split(" ")[1]}</span>
           </motion.h1>
 
-          {/* Animated subtitle */}
+          {/* Typewriter */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -119,18 +105,12 @@ export default function Hero() {
             className="text-xl md:text-2xl lg:text-3xl text-muted mb-3 h-10"
           >
             <Typewriter
-              words={[
-                "Full Stack Developer",
-                "Business Analyst",
-                "AI Builder",
-                "Data Storyteller",
-                "Product Thinker",
-              ]}
+              words={["Full Stack Developer", "Business Analyst", "AI Builder", "Data Storyteller", "Product Thinker"]}
               className="font-light"
             />
           </motion.div>
 
-          {/* Tagline */}
+          {/* Sub */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -139,9 +119,7 @@ export default function Hero() {
           >
             From Hyderabad to Manhattan — I turn data into decisions and code
             into products. MBA in Analytics. B.Tech in CS.{" "}
-            <span className="text-foreground font-medium">
-              Building what&apos;s next.
-            </span>
+            <span className="text-foreground font-medium">Building what&apos;s next.</span>
           </motion.p>
 
           {/* CTA */}
@@ -153,7 +131,7 @@ export default function Hero() {
           >
             <a
               href="#journey"
-              className="group inline-flex items-center gap-2 bg-accent hover:bg-accent-light text-white px-8 py-4 rounded-2xl font-medium text-lg transition-all duration-300 hover:shadow-xl hover:shadow-accent/25 hover:-translate-y-0.5"
+              className="group inline-flex items-center gap-2 bg-accent hover:bg-accent-light text-background px-8 py-4 rounded-2xl font-medium text-lg transition-all duration-300 hover:shadow-xl hover:shadow-accent/25 hover:-translate-y-0.5"
             >
               My Journey
               <ArrowDown size={18} className="group-hover:translate-y-1 transition-transform" />
@@ -183,7 +161,7 @@ export default function Hero() {
                 href={link.href}
                 target={link.label !== "Email" ? "_blank" : undefined}
                 rel={link.label !== "Email" ? "noopener noreferrer" : undefined}
-                className="w-12 h-12 rounded-xl border border-border bg-card/50 flex items-center justify-center text-muted-foreground hover:text-accent hover:border-accent/40 hover:bg-accent/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-accent/10"
+                className="w-12 h-12 rounded-xl border border-border bg-card/50 flex items-center justify-center text-muted-foreground hover:text-accent hover:border-accent/40 hover:bg-accent/5 transition-all duration-300 hover:-translate-y-1"
                 aria-label={link.label}
               >
                 {link.icon}
@@ -191,7 +169,7 @@ export default function Hero() {
             ))}
           </motion.div>
 
-          {/* Achievement counters */}
+          {/* Metrics */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -210,9 +188,7 @@ export default function Hero() {
                 <div className="text-2xl md:text-3xl font-bold gradient-text">
                   <AnimatedCounter target={item.metric} />
                 </div>
-                <div className="text-xs text-muted-foreground mt-1 uppercase tracking-wider">
-                  {item.label}
-                </div>
+                <div className="text-xs text-muted-foreground mt-1 uppercase tracking-wider">{item.label}</div>
               </motion.div>
             ))}
           </motion.div>

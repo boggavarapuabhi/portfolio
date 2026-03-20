@@ -22,7 +22,7 @@ export default function ParticleField() {
       color: string;
     }[] = [];
 
-    const colors = ["#6366f1", "#818cf8", "#a78bfa", "#c084fc", "#06b6d4"];
+    const colors = ["#c9a84c", "#dfc06e", "#b8963f", "#e8d5a0", "#a07c2e"];
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -76,7 +76,7 @@ export default function ParticleField() {
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(99, 102, 241, ${0.06 * (1 - dist / 120)})`;
+            ctx.strokeStyle = `rgba(201, 168, 76, ${0.06 * (1 - dist / 120)})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }

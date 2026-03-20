@@ -1,42 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { useRef } from "react";
 import { journeyChapters } from "@/lib/data";
-import {
-  IndianVillageSkyline,
-  HyderabadSkyline,
-  NYCSkyline,
-  JerseyCitySkyline,
-  Avatar,
-} from "./journey/Skylines";
 
-const skylineMap: Record<string, React.ReactNode> = {
-  school: <IndianVillageSkyline className="w-full h-auto text-white/40" />,
-  intermediate: <IndianVillageSkyline className="w-full h-auto text-white/30" />,
-  btech: <HyderabadSkyline className="w-full h-auto text-white/40" />,
-  nyc: <NYCSkyline className="w-full h-auto text-white/40" />,
-  now: <JerseyCitySkyline className="w-full h-auto text-white/30" />,
-};
-
-const avatarStageMap: Record<string, "kid" | "teen" | "college" | "professional" | "builder"> = {
-  school: "kid",
-  intermediate: "teen",
-  btech: "college",
-  nyc: "professional",
-  now: "builder",
-};
-
-const avatarSizeMap: Record<string, number> = {
-  school: 36,
-  intermediate: 44,
-  btech: 52,
-  nyc: 60,
-  now: 68,
-};
-
-function JourneyCard({
+function ChapterScene({
   chapter,
   index,
 }: {
@@ -44,366 +13,260 @@ function JourneyCard({
   index: number;
 }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-10%" });
-  const isLeft = index % 2 === 0;
-
-  const cardRef = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-20%" });
   const { scrollYProgress } = useScroll({
-    target: cardRef,
+    target: ref,
     offset: ["start end", "end start"],
   });
-  // Parallax: photo moves slower than scroll
-  const photoY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+
+  // Parallax — photo moves slower than scroll
+  const photoY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const photoScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.15, 1, 1.05]);
+  const contentOpacity = useTransform(scrollYProgress, [0.1, 0.3, 0.7, 0.9], [0, 1, 1, 0]);
+  const contentY = useTransform(scrollYProgress, [0.1, 0.3, 0.7, 0.9], [60, 0, 0, -40]);
+
+  const isEven = index % 2 === 0;
 
   return (
-    <div
+    <section
       ref={ref}
-      className={`relative flex items-start gap-8 md:gap-16 ${
-        isLeft ? "md:flex-row" : "md:flex-row-reverse"
-      } flex-col md:flex-row`}
+      className="relative min-h-screen flex items-center overflow-hidden"
     >
-      {/* Timeline node — AVATAR */}
-      <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 flex-col items-center z-10">
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={inView ? { scale: 1 } : {}}
-          transition={{ type: "spring", stiffness: 300, delay: 0.2 }}
-          className="relative w-20 h-20 rounded-2xl flex items-center justify-center border-2 bg-background shadow-2xl"
-          style={{ borderColor: chapter.accentColor }}
-        >
-          {inView && (
-            <Avatar
-              stage={avatarStageMap[chapter.id]}
-              size={avatarSizeMap[chapter.id]}
-              color={chapter.accentColor}
-            />
-          )}
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={inView ? { scale: [1, 1.6, 1], opacity: [0.4, 0, 0.4] } : {}}
-            transition={{ delay: 0.5, duration: 2, repeat: Infinity, ease: "easeOut" }}
-            className="absolute inset-0 rounded-2xl border-2"
-            style={{ borderColor: chapter.accentColor }}
-          />
-        </motion.div>
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.8 }}
-          className="text-[10px] font-mono mt-2 px-2 py-0.5 rounded-full border border-border bg-background text-muted-foreground"
-        >
-          {chapter.year.split("—")[0].trim()}
-        </motion.span>
-      </div>
-
-      {/* Content card */}
+      {/* ============ FULL-SCREEN PHOTO BACKGROUND ============ */}
       <motion.div
-        ref={cardRef}
-        initial={{ opacity: 0, x: isLeft ? -60 : 60, y: 20 }}
-        animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
-        transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1], delay: 0.1 }}
-        className={`w-full md:w-[calc(50%-4rem)] ${isLeft ? "md:pr-0" : "md:pl-0"}`}
+        className="absolute inset-0 z-0"
+        style={{ y: photoY, scale: photoScale }}
       >
-        <div className="relative group">
-          {/* Mobile: avatar + year */}
-          <div className="md:hidden flex items-center gap-4 mb-4">
+        <Image
+          src={chapter.photo}
+          alt={chapter.title}
+          fill
+          className="object-cover"
+          sizes="100vw"
+          priority={index < 2}
+          quality={90}
+        />
+      </motion.div>
+
+      {/* Cinematic color grading overlay */}
+      <div className="absolute inset-0 z-[1] bg-black/50" />
+      <div
+        className="absolute inset-0 z-[1] mix-blend-multiply opacity-30"
+        style={{
+          background: `radial-gradient(ellipse at ${isEven ? '30%' : '70%'} 50%, ${chapter.accentColor}40, transparent 70%)`,
+        }}
+      />
+
+      {/* Heavy bottom gradient for text readability */}
+      <div className="absolute inset-0 z-[1] bg-gradient-to-t from-black/80 via-black/20 to-black/40" />
+
+      {/* Vignette effect */}
+      <div className="absolute inset-0 z-[1]" style={{
+        background: 'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.5) 100%)',
+      }} />
+
+      {/* ============ CHAPTER NUMBER (cinematic) ============ */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        transition={{ duration: 1.5 }}
+        className={`absolute top-8 z-10 ${isEven ? 'left-8 md:left-16' : 'right-8 md:right-16'}`}
+      >
+        <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-white/30">
+          Chapter {String(index + 1).padStart(2, '0')}
+        </span>
+      </motion.div>
+
+      {/* Year — top opposite corner */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 1, delay: 0.3 }}
+        className={`absolute top-8 z-10 ${isEven ? 'right-8 md:right-16' : 'left-8 md:left-16'}`}
+      >
+        <span className="font-mono text-sm text-white/40 tracking-widest">
+          {chapter.year}
+        </span>
+      </motion.div>
+
+      {/* ============ MAIN CONTENT ============ */}
+      <motion.div
+        style={{ opacity: contentOpacity, y: contentY }}
+        className={`relative z-10 max-w-6xl mx-auto px-8 md:px-16 w-full ${
+          isEven ? 'text-left' : 'text-right'
+        }`}
+      >
+        <div className={`max-w-2xl ${isEven ? '' : 'ml-auto'}`}>
+          {/* Era label */}
+          <motion.div
+            initial={{ opacity: 0, x: isEven ? -30 : 30 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <span
+              className="inline-block text-xs font-bold uppercase tracking-[0.3em] mb-4 px-3 py-1"
+              style={{
+                color: chapter.accentColor,
+                borderBottom: `2px solid ${chapter.accentColor}`,
+              }}
+            >
+              {chapter.era}
+            </span>
+          </motion.div>
+
+          {/* Title — cinematic large */}
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-6 drop-shadow-2xl"
+          >
+            {chapter.title}
+          </motion.h2>
+
+          {/* Location */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="text-sm text-white/50 font-mono tracking-wider mb-8 flex items-center gap-2"
+            style={{ justifyContent: isEven ? 'flex-start' : 'flex-end' }}
+          >
+            <span className="text-base">{chapter.image}</span>
+            {chapter.location}
+          </motion.p>
+
+          {/* Description — the story */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.7 }}
+            className="text-base md:text-lg text-white/70 leading-relaxed mb-8 max-w-xl"
+            style={{ marginLeft: isEven ? '0' : 'auto' }}
+          >
+            {chapter.description}
+          </motion.p>
+
+          {/* Milestone — the emotional beat */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.9 }}
+            className="inline-block"
+          >
             <div
-              className="w-14 h-14 rounded-xl flex items-center justify-center border-2 bg-background"
+              className="border-l-2 pl-5 py-1"
               style={{ borderColor: chapter.accentColor }}
             >
-              <Avatar
-                stage={avatarStageMap[chapter.id]}
-                size={avatarSizeMap[chapter.id] * 0.7}
-                color={chapter.accentColor}
-              />
+              <p className="text-sm text-white/50 leading-relaxed italic">
+                &ldquo;{chapter.milestone}&rdquo;
+              </p>
             </div>
-            <div>
-              <span className="text-xs font-bold uppercase tracking-widest" style={{ color: chapter.accentColor }}>
-                {chapter.era}
-              </span>
-              <p className="text-sm font-mono text-muted-foreground">{chapter.year}</p>
-            </div>
-          </div>
+          </motion.div>
 
-          <div
-            className="relative rounded-3xl border border-border bg-card/80 backdrop-blur-sm hover:bg-card-hover transition-all duration-500 card-shine overflow-hidden group-hover:border-opacity-50"
-            style={{ "--shine-color": chapter.accentColor } as React.CSSProperties}
-          >
-            {/* ============================================ */}
-            {/* REAL PHOTO BACKGROUND WITH PARALLAX          */}
-            {/* ============================================ */}
+          {/* Sub events */}
+          {chapter.subEvents && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={inView ? { opacity: 1 } : {}}
-              transition={{ duration: 1.5, delay: 0.2 }}
-              className="relative w-full overflow-hidden"
-              style={{ height: "220px" }}
+              transition={{ delay: 1.2, duration: 0.8 }}
+              className="mt-8 space-y-3"
             >
-              {/* Real photo with parallax */}
-              <motion.div
-                className="absolute inset-0 w-full"
-                style={{ y: photoY, height: "130%", top: "-15%" }}
-              >
-                <Image
-                  src={chapter.photo}
-                  alt={`${chapter.location} - ${chapter.era}`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  priority={index < 2}
-                />
-              </motion.div>
-
-              {/* Dark overlay gradient from bottom for text readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a1a] via-[#0a0a1a]/70 to-transparent" />
-
-              {/* Color tint overlay matching chapter accent */}
-              <div
-                className="absolute inset-0 opacity-20 mix-blend-overlay"
-                style={{ background: chapter.accentColor }}
-              />
-
-              {/* SVG Skyline silhouette overlay at the bottom */}
-              <motion.div
-                className="absolute bottom-0 left-0 right-0 z-10"
-                initial={{ y: 30, opacity: 0 }}
-                animate={inView ? { y: 0, opacity: 1 } : {}}
-                transition={{ duration: 1.2, delay: 0.6, ease: [0.25, 0.4, 0.25, 1] }}
-              >
-                {skylineMap[chapter.id]}
-              </motion.div>
-
-              {/* Twinkling stars */}
-              <div className="absolute inset-0 z-10 pointer-events-none">
-                {[...Array(6)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute w-1 h-1 rounded-full bg-white"
-                    style={{
-                      left: `${12 + i * 15}%`,
-                      top: `${10 + (i % 3) * 12}%`,
-                    }}
-                    animate={{ opacity: [0.1, 0.5, 0.1] }}
-                    transition={{
-                      repeat: Infinity,
-                      duration: 2 + i * 0.4,
-                      delay: i * 0.3,
-                    }}
-                  />
-                ))}
-              </div>
-
-              {/* Era badge overlaying the photo */}
-              <div className="absolute bottom-4 left-6 z-20">
+              {chapter.subEvents.map((event, ei) => (
                 <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: 0.8 }}
+                  key={event.title}
+                  initial={{ opacity: 0, x: isEven ? -20 : 20 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: 1.3 + ei * 0.15 }}
+                  className="flex items-start gap-4 bg-white/5 backdrop-blur-sm rounded-xl px-5 py-3 max-w-md"
+                  style={{ marginLeft: isEven ? '0' : 'auto' }}
                 >
                   <span
-                    className="text-xs font-bold uppercase tracking-[0.2em] drop-shadow-lg"
+                    className="text-xs font-mono mt-0.5 flex-shrink-0 font-bold"
                     style={{ color: chapter.accentColor }}
                   >
-                    {chapter.era}
+                    {event.year}
                   </span>
-                  <h3 className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg mt-1">
-                    {chapter.title}
-                  </h3>
+                  <div>
+                    <p className="text-sm font-semibold text-white/90">{event.title}</p>
+                    <p className="text-xs text-white/40 mt-0.5">{event.desc}</p>
+                  </div>
                 </motion.div>
-              </div>
-
-              {/* Year badge top right */}
-              <div className="absolute top-4 right-4 z-20">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={inView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ delay: 0.5, type: "spring" }}
-                  className="px-3 py-1.5 rounded-xl border border-white/20 bg-black/40 backdrop-blur-md text-xs font-mono text-white/80"
-                >
-                  {chapter.year}
-                </motion.div>
-              </div>
-
-              {/* Photo credit */}
-              {chapter.photoCredit && (
-                <span className="absolute bottom-2 right-4 z-20 text-[9px] text-white/30 font-mono">
-                  Photo: {chapter.photoCredit} / Unsplash
-                </span>
-              )}
-
-              {/* Top gradient accent line */}
-              <div
-                className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${chapter.color} opacity-80 z-20`}
-              />
+              ))}
             </motion.div>
-
-            {/* ============================================ */}
-            {/* CARD CONTENT                                 */}
-            {/* ============================================ */}
-            <div className="p-6 md:p-8 relative">
-              {/* Corner glow */}
-              <div
-                className="absolute -top-20 -right-20 w-40 h-40 rounded-full blur-[80px] opacity-0 group-hover:opacity-20 transition-opacity duration-700 pointer-events-none"
-                style={{ background: chapter.accentColor }}
-              />
-
-              <p className="text-sm text-muted-foreground mb-5 flex items-center gap-1.5">
-                <span className="text-lg">{chapter.image}</span>
-                {chapter.location}
-              </p>
-
-              <p className="text-muted leading-relaxed mb-6">{chapter.description}</p>
-
-              {/* Milestone */}
-              <div
-                className="p-4 rounded-2xl border border-border/50 bg-background/30"
-                style={{ borderColor: `${chapter.accentColor}20` }}
-              >
-                <p
-                  className="text-xs font-mono uppercase tracking-wider mb-2"
-                  style={{ color: chapter.accentColor }}
-                >
-                  Key Milestone
-                </p>
-                <p className="text-sm text-muted leading-relaxed">{chapter.milestone}</p>
-              </div>
-
-              {/* Sub events */}
-              {chapter.subEvents && (
-                <div className="mt-6 space-y-3">
-                  {chapter.subEvents.map((event, ei) => (
-                    <motion.div
-                      key={event.title}
-                      initial={{ opacity: 0, x: -15 }}
-                      animate={inView ? { opacity: 1, x: 0 } : {}}
-                      transition={{ delay: 0.6 + ei * 0.15 }}
-                      className="flex gap-3 p-3 rounded-xl bg-background/40 border border-border/30 hover:border-accent/20 transition-colors"
-                    >
-                      <span className="text-xs font-mono mt-0.5 flex-shrink-0" style={{ color: chapter.accentColor }}>
-                        {event.year}
-                      </span>
-                      <div>
-                        <p className="text-sm font-semibold text-foreground">{event.title}</p>
-                        <p className="text-xs text-muted-foreground mt-0.5">{event.desc}</p>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
+          )}
         </div>
       </motion.div>
 
-      {/* Spacer */}
-      <div className="hidden md:block w-[calc(50%-4rem)]" />
-    </div>
+      {/* Photo credit */}
+      {chapter.photoCredit && (
+        <span className="absolute bottom-6 right-8 z-10 text-[9px] text-white/15 font-mono">
+          {chapter.photoCredit} / Unsplash
+        </span>
+      )}
+
+      {/* Bottom fade to next scene */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a0a0a] to-transparent z-[2]" />
+      {/* Top fade from prev scene */}
+      {index > 0 && (
+        <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#0a0a0a] to-transparent z-[2]" />
+      )}
+    </section>
   );
 }
 
 export default function Journey() {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-
   return (
-    <section id="journey" className="py-24 md:py-40 relative overflow-hidden">
-      {/* Background ambient */}
-      <div className="absolute top-1/4 left-0 w-[400px] h-[400px] bg-amber-500/3 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-indigo-500/3 rounded-full blur-[150px] pointer-events-none" />
-
-      <div className="max-w-6xl mx-auto px-6">
-        {/* Section header */}
+    <div id="journey">
+      {/* Section intro */}
+      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0a0a0a] to-[#0a0a0a]" />
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-8"
+          transition={{ duration: 1 }}
+          className="relative text-center px-6"
         >
-          <h2 className="text-sm font-mono text-accent mb-4 uppercase tracking-[0.2em]">
-            The Journey
-          </h2>
-          <h3 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
-            From <span className="gradient-text-warm">India</span> to{" "}
-            <span className="gradient-text-cyan">New York</span>
-          </h3>
-          <p className="text-muted text-lg max-w-2xl mx-auto mb-4">
-            Every chapter shaped who I am. Scroll through the story of how a
-            curious kid from India became a product-minded engineer in Manhattan.
-          </p>
-        </motion.div>
-
-        {/* Avatar growth guide */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-          className="flex items-end justify-center gap-6 md:gap-8 mb-20"
-        >
-          {(["kid", "teen", "college", "professional", "builder"] as const).map(
-            (stage, i) => (
-              <motion.div
-                key={stage}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4 + i * 0.12 }}
-                className="flex flex-col items-center gap-1"
-              >
-                <Avatar
-                  stage={stage}
-                  size={22 + i * 9}
-                  color={
-                    ["#f59e0b", "#f43f5e", "#06b6d4", "#6366f1", "#8b5cf6"][i]
-                  }
-                />
-                <span className="text-[9px] font-mono text-muted-foreground mt-1">
-                  {["Kid", "Teen", "Grad", "Pro", "Now"][i]}
-                </span>
-                <motion.div
-                  className="w-1 h-1 rounded-full mt-0.5"
-                  style={{ background: ["#f59e0b", "#f43f5e", "#06b6d4", "#6366f1", "#8b5cf6"][i] }}
-                  animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
-                  transition={{ repeat: Infinity, duration: 2, delay: i * 0.2 }}
-                />
-              </motion.div>
-            )
-          )}
-        </motion.div>
-
-        {/* Timeline */}
-        <div ref={containerRef} className="relative">
-          {/* Animated timeline line */}
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[3px] -translate-x-1/2">
-            <div className="w-full h-full bg-border/20 rounded-full" />
-            <motion.div
-              className="absolute top-0 left-0 w-full rounded-full timeline-line"
-              style={{ height: lineHeight }}
-            />
-          </div>
-
-          <div className="space-y-20 md:space-y-32">
-            {journeyChapters.map((chapter, i) => (
-              <JourneyCard key={chapter.id} chapter={chapter} index={i} />
-            ))}
-          </div>
-
-          {/* End marker */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="hidden md:flex justify-center mt-16"
+            transition={{ delay: 0.2 }}
+            className="text-xs font-mono tracking-[0.4em] uppercase text-accent mb-8"
           >
-            <div className="w-4 h-4 rounded-full bg-accent glow" />
+            The Journey
+          </motion.p>
+
+          <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-[1.05]">
+            From <span className="gradient-text-warm">India</span>
+            <br />
+            to <span className="gradient-text-cool">New York</span>
+          </h2>
+
+          <p className="text-muted text-lg max-w-xl mx-auto mb-12">
+            Every chapter shaped who I am. This is the story of how a curious
+            kid from India became a product-minded engineer in Manhattan.
+          </p>
+
+          {/* Scroll cue */}
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
+            className="flex flex-col items-center gap-2"
+          >
+            <span className="text-[10px] font-mono text-muted-foreground tracking-widest uppercase">
+              Scroll to experience
+            </span>
+            <div className="w-px h-12 bg-gradient-to-b from-accent to-transparent" />
           </motion.div>
-        </div>
-      </div>
-    </section>
+        </motion.div>
+      </section>
+
+      {/* Full-screen chapter scenes */}
+      {journeyChapters.map((chapter, i) => (
+        <ChapterScene key={chapter.id} chapter={chapter} index={i} />
+      ))}
+    </div>
   );
 }
