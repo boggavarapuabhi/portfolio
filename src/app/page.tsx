@@ -6,13 +6,11 @@ import Projects from "@/components/Projects";
 import Mindset from "@/components/Mindset";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import ParticleField from "@/components/ParticleField";
 import ScrollProgress from "@/components/ScrollProgress";
 
 export default function Home() {
   return (
-    <div className="noise">
-      <ParticleField />
+    <div className="film-grain letterbox">
       <ScrollProgress />
       <Navbar />
       <main className="relative z-10">

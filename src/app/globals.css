@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #0a0a0a;
-  --color-foreground: #f0ece6;
-  --color-muted: #9e9a93;
-  --color-muted-foreground: #6b6660;
-  --color-border: #1e1c1a;
-  --color-card: #141210;
-  --color-card-hover: #1a1816;
+  --color-background: #060606;
+  --color-foreground: #e8e4de;
+  --color-muted: #8a8580;
+  --color-muted-foreground: #5a5550;
+  --color-border: #1a1816;
+  --color-card: #0e0d0b;
+  --color-card-hover: #161412;
   --color-accent: #c9a84c;
   --color-accent-light: #dfc06e;
-  --color-accent-glow: rgba(201, 168, 76, 0.15);
+  --color-accent-glow: rgba(201, 168, 76, 0.12);
   --color-success: #4ade80;
   --color-warm: #e8a849;
   --color-rose: #e06c75;
@@ -32,14 +32,14 @@ body {
 
 ::selection {
   background: var(--color-accent);
-  color: #0a0a0a;
+  color: #060606;
 }
 
-::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar { width: 2px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 2px; }
 
-/* Gradient text — warm gold */
+/* ─── Gradient text ─── */
 .gradient-text {
   background: linear-gradient(135deg, #c9a84c 0%, #dfc06e 40%, #f0d78e 60%, #c9a84c 100%);
   background-size: 300% auto;
@@ -68,75 +68,55 @@ body {
   background-clip: text;
 }
 
-/* Glow */
-.glow { box-shadow: 0 0 60px rgba(201, 168, 76, 0.2), 0 0 120px rgba(201, 168, 76, 0.05); }
-
-/* Card shine */
-.card-shine {
-  position: relative;
-  overflow: hidden;
-}
-.card-shine::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.03) 45%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 55%, transparent 60%);
-  transform: translateX(-100%);
-  transition: transform 0.6s ease;
-  z-index: 1;
-  pointer-events: none;
-}
-.card-shine:hover::before {
-  transform: translateX(100%);
-}
-
-/* Float */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
-}
-.animate-float { animation: float 6s ease-in-out infinite; }
-.animate-float-delayed { animation: float 6s ease-in-out 2s infinite; }
-.animate-float-slow { animation: float 8s ease-in-out 1s infinite; }
-
-/* Film grain overlay */
+/* ─── Film grain ─── */
 .film-grain::after {
   content: '';
   position: fixed;
   inset: 0;
-  opacity: 0.03;
+  opacity: 0.025;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 50;
 }
 
-/* Cinematic letterbox bars */
+/* ─── Letterbox ─── */
 .letterbox::before,
 .letterbox::after {
   content: '';
   position: fixed;
   left: 0;
   right: 0;
-  height: 3vh;
+  height: 2.5vh;
   background: #000;
-  z-index: 40;
+  z-index: 55;
   pointer-events: none;
 }
 .letterbox::before { top: 0; }
 .letterbox::after { bottom: 0; }
 
-/* Timeline */
-.timeline-line {
-  background: linear-gradient(180deg, transparent 0%, var(--color-accent) 20%, var(--color-accent) 80%, transparent 100%);
+/* ─── Horizontal rule ─── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border), transparent);
 }
 
-/* Scene fade */
-@keyframes scene-in {
-  0% { opacity: 0; transform: scale(1.05); }
-  100% { opacity: 1; transform: scale(1); }
+/* ─── Float animations ─── */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-float-delayed { animation: float 6s ease-in-out 2s infinite; }
 
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+/* ─── Marquee ─── */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee 30s linear infinite; }
+
+/* ─── Reveal line ─── */
+@keyframes reveal-line {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
 }
