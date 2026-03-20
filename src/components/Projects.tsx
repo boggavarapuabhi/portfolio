@@ -4,132 +4,123 @@ import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { projects } from "@/lib/data";
 
-function ProjectSection({ project, index }: { project: (typeof projects)[0]; index: number }) {
+function ProjectScene({
+  project,
+  index,
+}: {
+  project: (typeof projects)[0];
+  index: number;
+}) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-15%" });
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
-
-  const isEven = index % 2 === 0;
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const contentY = useTransform(scrollYProgress, [0, 1], [30, -30]);
 
   return (
     <motion.div
       ref={ref}
       initial={{ opacity: 0 }}
       animate={inView ? { opacity: 1 } : {}}
-      transition={{ duration: 1 }}
+      transition={{ duration: 1.2 }}
       className="relative"
     >
-      {/* Divider */}
-      <div className="divider mb-16" />
+      {/* Top rule */}
+      <div className="h-px bg-white/[0.04] mb-12" />
 
-      <div className={`flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} gap-12 md:gap-20`}>
-        {/* Left/Right: metadata column */}
-        <motion.div
-          style={{ y }}
-          className="md:w-1/3 shrink-0"
-        >
-          <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-muted-foreground block mb-3">
-            Project {String(index + 1).padStart(2, "0")}
-          </span>
+      {/* Project number — large ghost number */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        transition={{ duration: 1.5 }}
+        className="absolute -top-2 right-0 font-mono text-[120px] md:text-[180px] font-bold text-white/[0.015] leading-none pointer-events-none select-none"
+      >
+        {String(index + 1).padStart(2, "0")}
+      </motion.div>
 
-          <h3 className="text-3xl md:text-4xl font-bold mb-3 leading-tight">
-            {project.title}
-          </h3>
-
-          <p className="text-sm text-muted mb-6">{project.tagline}</p>
-
-          <div className="space-y-4 mb-8">
-            <div>
-              <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-muted-foreground">
-                Period
-              </span>
-              <p className="text-xs text-muted mt-1">{project.period}</p>
-            </div>
-            <div>
-              <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-muted-foreground">
-                Institution
-              </span>
-              <p className="text-xs text-muted mt-1">{project.institution}</p>
-            </div>
-          </div>
-
-          {/* Tech stack */}
-          <div className="flex flex-wrap gap-2">
-            {project.techStack.map((tech) => (
-              <span
-                key={tech}
-                className="text-[10px] font-mono px-2 py-1 border border-border text-muted-foreground tracking-wider"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Right/Left: content column */}
-        <div className="md:flex-1 space-y-8">
+      <motion.div style={{ y: contentY }}>
+        {/* Header row */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
           <div>
-            <p className="font-mono text-[9px] tracking-[0.3em] uppercase text-rose mb-3">
-              The Problem
+            <span className="font-mono text-[9px] tracking-[0.5em] uppercase text-white/15 block mb-3">
+              Project {String(index + 1).padStart(2, "0")}
+            </span>
+            <h3 className="text-2xl md:text-4xl font-bold text-white/90 leading-tight">
+              {project.title}
+            </h3>
+          </div>
+          <div className="flex items-center gap-6">
+            <span className="font-mono text-[9px] text-white/15 tracking-wider">
+              {project.period}
+            </span>
+            <span className="font-mono text-[9px] text-white/15 tracking-wider">
+              {project.institution}
+            </span>
+          </div>
+        </div>
+
+        {/* Tagline */}
+        <p className="text-base md:text-lg text-white/40 italic mb-14 max-w-2xl">
+          {project.tagline}
+        </p>
+
+        {/* Three columns: problem, solution, impact */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 mb-12">
+          <div>
+            <span className="font-mono text-[9px] tracking-[0.4em] uppercase text-rose/60 block mb-4">
+              Problem
+            </span>
+            <p className="text-[12px] text-white/35 leading-[1.9]">
+              {project.problem}
             </p>
-            <p className="text-sm text-muted leading-relaxed">{project.problem}</p>
           </div>
 
           <div>
-            <p className="font-mono text-[9px] tracking-[0.3em] uppercase text-success mb-3">
-              The Solution
+            <span className="font-mono text-[9px] tracking-[0.4em] uppercase text-success/60 block mb-4">
+              Solution
+            </span>
+            <p className="text-[12px] text-white/35 leading-[1.9]">
+              {project.solution}
             </p>
-            <p className="text-sm text-muted leading-relaxed">{project.solution}</p>
           </div>
 
           <div>
-            <p className="font-mono text-[9px] tracking-[0.3em] uppercase text-accent mb-3">
+            <span className="font-mono text-[9px] tracking-[0.4em] uppercase text-accent/60 block mb-4">
               Impact
-            </p>
-            <div className="flex flex-wrap gap-x-8 gap-y-2">
+            </span>
+            <div className="space-y-3">
               {project.impact.map((item) => (
-                <span key={item} className="text-sm text-foreground">
+                <p key={item} className="text-[12px] text-white/50">
                   {item}
+                </p>
+              ))}
+            </div>
+            <div className="mt-8 flex flex-wrap gap-2">
+              {project.techStack.map((tech) => (
+                <span
+                  key={tech}
+                  className="font-mono text-[8px] tracking-wider text-white/15 px-2 py-1 border border-white/[0.03]"
+                >
+                  {tech}
                 </span>
               ))}
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }
 
 export default function Projects() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <section id="projects" className="py-28 md:py-40 relative">
-      <div className="max-w-[90rem] mx-auto px-6 md:px-12">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="mb-20 max-w-2xl"
-        >
-          <p className="font-mono text-[10px] tracking-[0.5em] uppercase text-muted-foreground mb-6">
-            Selected Work
-          </p>
-          <h2 className="text-4xl md:text-6xl font-bold leading-[1.1] mb-6">
-            Projects I&apos;ve <span className="gradient-text">Built</span>
-          </h2>
-          <p className="text-muted text-sm md:text-base leading-relaxed">
-            Real problems. Real solutions. Every project started with a question
-            and ended with working software.
-          </p>
-        </motion.div>
-
-        <div className="space-y-24">
+    <section id="projects" className="py-32 md:py-44 relative bg-[#060606]">
+      <div className="max-w-[90rem] mx-auto px-8 md:px-16">
+        <div className="space-y-32">
           {projects.map((project, i) => (
-            <ProjectSection key={project.title} project={project} index={i} />
+            <ProjectScene key={project.title} project={project} index={i} />
           ))}
         </div>
       </div>
