@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Hemanth Boggavarapu | Full Stack Developer & Business Analyst",
   description:
-    "Full Stack Developer with an MBA in Business Analytics and B.Tech in Computer Science. Building AI-powered applications and data-driven solutions with React, Python, and modern web technologies.",
+    "Full Stack Developer with an MBA in Business Analytics and B.Tech in Computer Science. Building AI-powered applications and data-driven solutions.",
   keywords: [
     "Full Stack Developer",
     "Business Analyst",
@@ -29,8 +29,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className="h-full antialiased" data-scroll-behavior="smooth">
+      <body className="min-h-full flex flex-col bg-background text-foreground">
+        {children}
+      </body>
     </html>
   );
 }

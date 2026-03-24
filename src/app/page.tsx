@@ -1,40 +1,24 @@
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import Journey from "@/components/Journey";
-import Skills from "@/components/Skills";
-import Projects from "@/components/Projects";
-import Mindset from "@/components/Mindset";
-import Contact from "@/components/Contact";
-import TitleCard from "@/components/TitleCard";
-import FilmOverlay from "@/components/FilmOverlay";
+import FloatingNav from "@/components/FloatingNav";
+import Hero3D from "@/components/Hero3D";
+import About3D from "@/components/About3D";
+import Journey3D from "@/components/Journey3D";
+import Skills3D from "@/components/Skills3D";
+import Projects3D from "@/components/Projects3D";
+import Contact3D from "@/components/Contact3D";
+import FloatingShapes from "@/components/FloatingShapes";
 
 export default function Home() {
   return (
-    <div className="film-grain letterbox scanline">
-      <FilmOverlay />
-      <Navbar />
+    <div className="relative min-h-screen">
+      <FloatingShapes />
+      <FloatingNav />
       <main className="relative z-10">
-        <Hero />
-        <TitleCard
-          act="Act I"
-          title="The Journey"
-          subtitle="From India to New York — five chapters that shaped everything"
-        />
-        <Journey />
-        <TitleCard
-          act="Act II"
-          title="The Craft"
-          subtitle="Tools, technologies, and the projects that put them to work"
-        />
-        <Skills />
-        <Projects />
-        <TitleCard
-          act="Act III"
-          title="The Philosophy"
-          subtitle="How I think, what I believe, and where this goes next"
-        />
-        <Mindset />
-        <Contact />
+        <Hero3D />
+        <About3D />
+        <Journey3D />
+        <Skills3D />
+        <Projects3D />
+        <Contact3D />
       </main>
     </div>
   );
