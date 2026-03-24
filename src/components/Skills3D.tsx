@@ -5,12 +5,12 @@ import { motion, useInView } from "framer-motion";
 import TiltCard from "./TiltCard";
 import { skills } from "@/lib/data";
 
-const categoryMeta: Record<string, { icon: string; color: string; glow: string }> = {
-  Languages: { icon: "🔤", color: "#7c3aed", glow: "rgba(124, 58, 237, 0.15)" },
-  Frontend: { icon: "🎨", color: "#06b6d4", glow: "rgba(6, 182, 212, 0.15)" },
-  "Backend & Data": { icon: "⚙️", color: "#ec4899", glow: "rgba(236, 72, 153, 0.15)" },
-  "AI & ML": { icon: "🧠", color: "#f59e0b", glow: "rgba(245, 158, 11, 0.15)" },
-  "Analytics & Tools": { icon: "📊", color: "#10b981", glow: "rgba(16, 185, 129, 0.15)" },
+const categoryIcons: Record<string, string> = {
+  Languages: "🔤",
+  Frontend: "🎨",
+  "Backend & Data": "⚙️",
+  "AI & ML": "🧠",
+  "Analytics & Tools": "📊",
 };
 
 function SkillCategory({
@@ -24,53 +24,42 @@ function SkillCategory({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
-  const meta = categoryMeta[category] || { icon: "📦", color: "#7c3aed", glow: "rgba(124, 58, 237, 0.15)" };
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
     >
-      <TiltCard
-        className="glass rounded-2xl p-6 h-full"
-        glowColor={meta.glow}
-        intensity={10}
-      >
-        {/* Category header */}
-        <div className="flex items-center gap-3 mb-6">
-          <span className="text-2xl">{meta.icon}</span>
-          <h3 className="text-lg font-semibold text-white">{category}</h3>
+      <TiltCard className="card p-6 h-full" intensity={8}>
+        <div className="flex items-center gap-3 mb-5">
+          <span className="text-xl">{categoryIcons[category] || "📦"}</span>
+          <h3 className="text-base font-semibold text-foreground">{category}</h3>
         </div>
 
-        {/* Skills list */}
-        <div className="space-y-4">
+        <div className="space-y-3.5">
           {items.map((skill, i) => (
             <motion.div
               key={skill.name}
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: -15 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: index * 0.1 + i * 0.05 + 0.3 }}
+              transition={{ delay: index * 0.08 + i * 0.04 + 0.2 }}
             >
-              <div className="flex justify-between text-sm mb-1.5">
-                <span className="text-white/70">{skill.name}</span>
-                <span className="text-white/30 font-mono text-xs">
+              <div className="flex justify-between text-sm mb-1">
+                <span className="text-foreground/80">{skill.name}</span>
+                <span className="text-tertiary font-mono text-xs">
                   {skill.level}%
                 </span>
               </div>
-              <div className="h-1.5 rounded-full bg-white/[0.05] overflow-hidden">
+              <div className="h-1 rounded-full bg-surface-hover overflow-hidden">
                 <motion.div
-                  className="h-full rounded-full"
-                  style={{
-                    background: `linear-gradient(90deg, ${meta.color}, ${meta.color}80)`,
-                    boxShadow: `0 0 10px ${meta.color}40`,
-                  }}
+                  className="h-full rounded-full bg-foreground/70"
                   initial={{ width: 0 }}
                   animate={isInView ? { width: `${skill.level}%` } : {}}
                   transition={{
-                    duration: 1.2,
-                    delay: index * 0.1 + i * 0.05 + 0.5,
+                    duration: 1,
+                    delay: index * 0.08 + i * 0.04 + 0.3,
                     ease: "easeOut",
                   }}
                 />
@@ -88,28 +77,27 @@ export default function Skills3D() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="skills" className="relative py-32 px-6" ref={ref}>
-      <div className="max-w-6xl mx-auto">
+    <section id="skills" className="relative py-28 px-6" ref={ref}>
+      <div className="max-w-5xl mx-auto">
         {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
         >
-          <span className="text-xs tracking-[0.3em] uppercase text-primary-light/60 block mb-4">
+          <span className="text-xs tracking-[0.3em] uppercase text-tertiary block mb-3">
             Technical Arsenal
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold gradient-text mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
             Skills & Technologies
           </h2>
-          <p className="text-white/40 max-w-md mx-auto">
+          <p className="text-secondary max-w-md mx-auto text-sm">
             Tools and technologies I use to bring ideas to life
           </p>
         </motion.div>
 
-        {/* Skills grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {Object.entries(skills).map(([category, items], i) => (
             <SkillCategory
               key={category}
