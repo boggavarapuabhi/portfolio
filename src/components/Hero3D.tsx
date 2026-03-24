@@ -22,6 +22,11 @@ export default function Hero3D() {
     .map((n) => n[0])
     .join("");
 
+  // Try local image first, then GitHub avatar
+  const imageSrc = imgError
+    ? `https://avatars.githubusercontent.com/boggavarapuabhi`
+    : "/profile.jpg";
+
   return (
     <section
       ref={containerRef}
@@ -29,7 +34,7 @@ export default function Hero3D() {
     >
       <motion.div
         style={{ y, opacity, scale }}
-        className="relative z-10 flex flex-col items-center text-center px-6 max-w-3xl mx-auto"
+        className="relative z-10 w-full max-w-3xl mx-auto flex flex-col items-center text-center px-6"
       >
         {/* Profile Image - Floating */}
         <motion.div
@@ -37,23 +42,17 @@ export default function Hero3D() {
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
         >
-          <div className="relative w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden profile-ring shadow-lg">
-            {imgError ? (
-              <div className="w-full h-full bg-surface flex items-center justify-center">
-                <span className="text-3xl md:text-4xl font-bold text-secondary">
-                  {initials}
-                </span>
-              </div>
-            ) : (
-              <Image
-                src="/profile.jpg"
-                alt={siteConfig.name}
-                fill
-                className="object-cover object-top"
-                priority
-                onError={() => setImgError(true)}
-              />
-            )}
+          <div className="relative w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden profile-ring shadow-2xl shadow-accent/10">
+            <Image
+              src={imageSrc}
+              alt={siteConfig.name}
+              fill
+              className="object-cover object-top"
+              priority
+              onError={() => {
+                if (!imgError) setImgError(true);
+              }}
+            />
           </div>
         </motion.div>
 
@@ -62,10 +61,10 @@ export default function Hero3D() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3 }}
-          className="rounded-full px-4 py-1.5 mb-6 flex items-center gap-2 bg-surface border border-border"
+          className="rounded-full px-4 py-1.5 mb-6 flex items-center gap-2 border border-card-border bg-surface"
         >
-          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-          <span className="text-xs text-secondary tracking-wide">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="text-xs text-muted tracking-wide">
             Available for opportunities
           </span>
         </motion.div>
@@ -75,7 +74,7 @@ export default function Hero3D() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.6 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold mb-4 tracking-tight text-foreground"
+          className="text-5xl md:text-7xl lg:text-8xl font-bold mb-4 tracking-tight text-white"
         >
           {siteConfig.name}
         </motion.h1>
@@ -85,9 +84,11 @@ export default function Hero3D() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.6 }}
-          className="text-lg md:text-xl text-secondary mb-3 font-light"
+          className="text-lg md:text-xl text-muted mb-3 font-light"
         >
-          {siteConfig.title} & Business Analyst
+          {siteConfig.title}{" "}
+          <span className="text-accent">&</span>{" "}
+          Business Analyst
         </motion.p>
 
         {/* Location */}
@@ -95,7 +96,7 @@ export default function Hero3D() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
-          className="text-sm text-tertiary mb-12 flex items-center gap-2"
+          className="text-sm text-dim mb-12 flex items-center gap-2"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -113,13 +114,13 @@ export default function Hero3D() {
         >
           <a
             href="#projects"
-            className="px-8 py-3 rounded-full bg-foreground text-background font-medium text-sm hover:opacity-80 transition-opacity"
+            className="px-8 py-3 rounded-full bg-accent text-white font-medium text-sm hover:bg-accent-soft transition-colors"
           >
             View My Work
           </a>
           <a
             href="#contact"
-            className="px-8 py-3 rounded-full bg-surface border border-border text-foreground font-medium text-sm hover:bg-surface-hover transition-colors"
+            className="px-8 py-3 rounded-full border border-card-border bg-surface text-white font-medium text-sm hover:bg-surface-hover transition-colors"
           >
             Get in Touch
           </a>
@@ -135,7 +136,7 @@ export default function Hero3D() {
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className="flex flex-col items-center gap-2 text-tertiary"
+            className="flex flex-col items-center gap-2 text-dim"
           >
             <span className="text-xs tracking-widest uppercase">Scroll</span>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

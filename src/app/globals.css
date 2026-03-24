@@ -1,14 +1,15 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #ffffff;
-  --color-foreground: #1d1d1f;
-  --color-secondary: #86868b;
-  --color-tertiary: #d2d2d7;
-  --color-surface: #f5f5f7;
-  --color-surface-hover: #e8e8ed;
-  --color-border: rgba(0, 0, 0, 0.06);
-  --color-accent: #1d1d1f;
+  --color-background: #0a0a0a;
+  --color-foreground: #fafafa;
+  --color-muted: #a1a1aa;
+  --color-dim: #52525b;
+  --color-surface: rgba(255, 255, 255, 0.04);
+  --color-surface-hover: rgba(255, 255, 255, 0.08);
+  --color-card-border: rgba(255, 255, 255, 0.08);
+  --color-accent: #3b82f6;
+  --color-accent-soft: #60a5fa;
   --font-sans: "Inter", "SF Pro Display", -apple-system, system-ui, sans-serif;
   --font-mono: "SF Mono", "Fira Code", "Roboto Mono", monospace;
 }
@@ -33,17 +34,12 @@ body {
 }
 
 /* ==========================================
-   FLOATING ANIMATIONS (subtle)
+   SUBTLE ANIMATIONS
    ========================================== */
 
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-12px); }
-}
-
-@keyframes float-slow {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
 }
 
 @keyframes gradient-shift {
@@ -52,28 +48,24 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
 /* ==========================================
-   CARDS
+   CARD STYLES
    ========================================== */
 
 .card {
   background: var(--color-surface);
-  border-radius: 20px;
-  border: 1px solid var(--color-border);
-  transition: all 0.3s ease;
+  border-radius: 16px;
+  border: 1px solid var(--color-card-border);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
 }
 
 /* ==========================================
-   3D CARD EFFECTS
+   3D EFFECTS
    ========================================== */
 
 .perspective-container {
@@ -91,10 +83,10 @@ body {
    ========================================== */
 
 .glass-nav {
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(10, 10, 10, 0.8);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* ==========================================
@@ -110,10 +102,11 @@ body {
   position: absolute;
   inset: -3px;
   border-radius: inherit;
-  background: linear-gradient(135deg, #1d1d1f, #86868b, #1d1d1f);
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6, #3b82f6);
   background-size: 300% 300%;
-  animation: gradient-shift 6s ease infinite;
+  animation: gradient-shift 4s ease infinite;
   z-index: -1;
+  opacity: 0.8;
 }
 
 /* ==========================================
@@ -129,27 +122,15 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 ::selection {
-  background: rgba(29, 29, 31, 0.12);
-  color: #1d1d1f;
-}
-
-/* ==========================================
-   SKILL BAR ANIMATION
-   ========================================== */
-
-@keyframes fill-bar {
-  from { width: 0%; }
-}
-
-.skill-bar-fill {
-  animation: fill-bar 1.5s ease-out forwards;
+  background: rgba(59, 130, 246, 0.3);
+  color: white;
 }

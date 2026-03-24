@@ -44,15 +44,15 @@ export default function FloatingNav() {
           transition={{ type: "spring", stiffness: 200, damping: 25 }}
           className="fixed top-6 left-1/2 -translate-x-1/2 z-50"
         >
-          <div className="glass-nav rounded-full px-2 py-2 flex items-center gap-1 shadow-sm">
+          <div className="glass-nav rounded-full px-2 py-2 flex items-center gap-1 shadow-lg shadow-black/20">
             <a
               href="#"
-              className="px-4 py-2 text-sm font-semibold text-foreground"
+              className="px-4 py-2 text-sm font-semibold text-accent"
             >
               {siteConfig.name.split(" ")[0]}
             </a>
 
-            <div className="w-px h-4 bg-tertiary/50" />
+            <div className="w-px h-4 bg-white/10" />
 
             {navLinks.map((link) => (
               <a
@@ -60,14 +60,14 @@ export default function FloatingNav() {
                 href={link.href}
                 className={`relative px-4 py-2 text-sm rounded-full transition-colors duration-200 ${
                   activeSection === link.href.slice(1)
-                    ? "text-foreground font-medium"
-                    : "text-secondary hover:text-foreground"
+                    ? "text-white font-medium"
+                    : "text-muted hover:text-white"
                 }`}
               >
                 {activeSection === link.href.slice(1) && (
                   <motion.div
                     layoutId="nav-pill"
-                    className="absolute inset-0 bg-foreground/[0.06] rounded-full"
+                    className="absolute inset-0 bg-white/[0.08] rounded-full"
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                   />
                 )}

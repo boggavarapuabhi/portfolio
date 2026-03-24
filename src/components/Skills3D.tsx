@@ -35,7 +35,7 @@ function SkillCategory({
       <TiltCard className="card p-6 h-full" intensity={8}>
         <div className="flex items-center gap-3 mb-5">
           <span className="text-xl">{categoryIcons[category] || "📦"}</span>
-          <h3 className="text-base font-semibold text-foreground">{category}</h3>
+          <h3 className="text-base font-semibold text-white">{category}</h3>
         </div>
 
         <div className="space-y-3.5">
@@ -47,14 +47,12 @@ function SkillCategory({
               transition={{ delay: index * 0.08 + i * 0.04 + 0.2 }}
             >
               <div className="flex justify-between text-sm mb-1">
-                <span className="text-foreground/80">{skill.name}</span>
-                <span className="text-tertiary font-mono text-xs">
-                  {skill.level}%
-                </span>
+                <span className="text-white/80">{skill.name}</span>
+                <span className="text-dim font-mono text-xs">{skill.level}%</span>
               </div>
-              <div className="h-1 rounded-full bg-surface-hover overflow-hidden">
+              <div className="h-1 rounded-full bg-white/[0.06] overflow-hidden">
                 <motion.div
-                  className="h-full rounded-full bg-foreground/70"
+                  className="h-full rounded-full bg-accent"
                   initial={{ width: 0 }}
                   animate={isInView ? { width: `${skill.level}%` } : {}}
                   transition={{
@@ -78,7 +76,7 @@ export default function Skills3D() {
 
   return (
     <section id="skills" className="relative py-28 px-6" ref={ref}>
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -86,25 +84,20 @@ export default function Skills3D() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-xs tracking-[0.3em] uppercase text-tertiary block mb-3">
+          <span className="text-xs tracking-[0.3em] uppercase text-dim block mb-3">
             Technical Arsenal
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Skills & Technologies
           </h2>
-          <p className="text-secondary max-w-md mx-auto text-sm">
+          <p className="text-muted max-w-md mx-auto text-sm">
             Tools and technologies I use to bring ideas to life
           </p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {Object.entries(skills).map(([category, items], i) => (
-            <SkillCategory
-              key={category}
-              category={category}
-              items={items}
-              index={i}
-            />
+            <SkillCategory key={category} category={category} items={items} index={i} />
           ))}
         </div>
       </div>
